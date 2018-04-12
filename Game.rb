@@ -1,6 +1,7 @@
 require 'gosu'
-require_relative './Assets.rb'
-require_relative './Player.rb'
+require './Player.rb'
+require './World.rb'
+require './Camera.rb'
 
 class Game < Gosu::Window
 
@@ -8,33 +9,51 @@ class Game < Gosu::Window
     BACKGROUND, ITEMS, PLAYER, UI = *0..3
   end
 
-  def initialize width=1200, height=1000, fullscreen=false
+  def initialize width=800, height=600, fullscreen=false
     super
     self.caption = "DEV"
-
+    @windowW = width
+    @windowH = height
     @width = @height = 32
+    @player = Player.new self, 0, 0
+    @camera = Camera.new self, 0, 0
+    @world = World.new self, "./worlds/world1.txt",  20, 20
+    @background_image = Gosu::Image.new 'images/tilesets/bg.png', :tileable => true
+    @tiles = Gosu::Image.load_tiles 'images/tilesets/bg.png', @width, @height
 
-    @player = Player.new self, 10, 10
-    @assets = Assets.new
-    @background_image = Gosu::Image.new('images/tilesets/bg.png', :tileable => true)
-    @tiles = Gosu::Image.load_tiles('images/tilesets/bg.png', @width, @height)
   end
 
   def button_down id
     close if id == Gosu::KbEscape
   end
 
+  def getGameCamera
+    return @camera
+  end
+
+  def getWidth
+    return @width
+  end
+
+  def getHeight
+    return @height
+  end
+
+  def getWindowWidth
+    return @windowW
+  end
+
+  def getWindowHeight
+    return @windowH
+  end
+
   def update
+    @camera.move(1, 1)
     @player.update
   end
 
   def draw
-    @assets.grass.draw(0,0, 5)
-    50.times do |x|
-      50.times do |y|
-        @assets.grass.draw((x * 32), (y * 32), 0, 1, 1)
-      end
-    end
+    @world.draw
     @player.draw
   end
 

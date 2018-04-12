@@ -1,9 +1,9 @@
-require_relative './Creature.rb'
+require './Creature.rb'
 
 class Player < Creature
   def initialize window, x, y
     super window, x, y, Creature.DEFAULT_WIDTH_SCALE, Creature.DEFAULT_HEIGHT_SCALE
-    @window = window
+    @widow = window
     # image
     @assets = Assets.new
     @width = @height = 32
@@ -11,7 +11,7 @@ class Player < Creature
     @scale = @s = 2
     # center image
     @@x = @window.width/2  - @width/2 + x
-    @@y = @window.height/2 - @height/2 + y
+    @@y = @window.height/2  - @height/2 + y
     # direction and movement
     @direction = :right
     @frame = 0
@@ -24,6 +24,23 @@ class Player < Creature
     super
     playerMove()
     move()
+    @window.getGameCamera.centerOnEntity self
+  end
+
+  def getX
+    return @@x
+  end
+
+  def getY
+    return @@y
+  end
+
+  def getWidth
+    return @width
+  end
+
+  def getHeight
+    return @height
   end
 
   def move
@@ -74,13 +91,13 @@ class Player < Creature
       image = @assets.player
     end
     if @direction == :left
-      image.draw @@x, @@y, 2, 2, 2
+      image.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 1, 1
     elsif @direction == :right
-      image.draw @@x + (@width * 2), @@y, 2, -2, 2
+      image.draw @@x + (@width) - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, -1, 1
     elsif @direction == :up
-      image.draw @@x, @@y, 2, 2, 2
+      image.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 1, 1
     elsif @direction == :down
-      image.draw @@x, @@y, 2, 2, 2
+      image.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 1, 1
     end
   end
 end
