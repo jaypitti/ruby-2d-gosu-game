@@ -1,4 +1,5 @@
 require './Creature.rb'
+require './Animation'
 
 class Player < Creature
   def initialize window, x, y
@@ -7,6 +8,10 @@ class Player < Creature
     @@xmove = @@ymove = 10
     # image
     @assets = Assets.new
+    @animation_down = Animation.new(250, @assets.player_down)
+    @animation_up = Animation.new(250, @assets.player_up)
+    @animation_x = Animation.new(250, @assets.player_x)
+
     @width = @height = 32
     # Only defined twice so others would know what @s is
     @scale = @s = 2
@@ -25,6 +30,11 @@ class Player < Creature
     super
     playerMove
     move
+
+    @animation_down.update
+    @animation_up.update
+    @animation_x.update
+
     @window.getGameCamera.centerOnEntity self
   end
 
@@ -69,13 +79,13 @@ class Player < Creature
     end
     if @window.getGame.button_down? Gosu::KbUp
       puts 'UP'
-      @direction = if @window.getGame.button_down? Gosu::KbRight then :right else :left end
+      @direction = :up
       @moving = true
       @@ymove = -@@speed
     end
     if @window.getGame.button_down? Gosu::KbDown
       puts 'DOWN'
-      @direction = if @window.getGame.button_down? Gosu::KbLeft then :left else :right end
+      @direction = :down
       @moving = true
       @@ymove = @@speed
     end
@@ -86,19 +96,27 @@ class Player < Creature
     # so we can use the same frame calc.
     # f = @frame % @animated.size
     f = Gosu.milliseconds / 100 % @animated.size
+    image = @assets.player
     if @moving
-      image = @animated[f]
+      if @direction == :left
+        @animation_x.getFrame.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 2, 2
+      elsif @direction == :right
+        @animation_x.getFrame.draw @@x + (@width * 2) - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, -2, 2
+      elsif @direction == :up
+        @animation_up.getFrame.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 2, 2
+      elsif @direction == :down
+        @animation_down.getFrame.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 2, 2
+      end
     else
-      image = @assets.player
-    end
-    if @direction == :left
-      image.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 2, 2
-    elsif @direction == :right
-      image.draw @@x + (@width * 2) - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, -2, 2
-    elsif @direction == :up
-      image.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 2, 2
-    elsif @direction == :down
-      image.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 2, 2
+      if @direction == :left
+        image.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 2, 2
+      elsif @direction == :right
+        image.draw @@x + (@width * 2) - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, -2, 2
+      elsif @direction == :up
+        image.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 2, 2
+      elsif @direction == :down
+        image.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 2, 2
+      end
     end
   end
 end
