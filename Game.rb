@@ -2,6 +2,7 @@ require 'gosu'
 require './Player.rb'
 require './World.rb'
 require './Camera.rb'
+require './Tree.rb'
 require './GameHandler'
 
 class Game < Gosu::Window
@@ -23,6 +24,7 @@ class Game < Gosu::Window
     @handler.setWorld @world
     @background_image = Gosu::Image.new 'images/tilesets/bg.png', :tileable => true
     @tiles = Gosu::Image.load_tiles 'images/tilesets/bg.png', @width, @height
+    @tree = Tree.new @handler, 5, 5, 0, 0
 
   end
 
@@ -58,6 +60,7 @@ class Game < Gosu::Window
   def draw
     @world.draw
     @player.draw
+    @tree.draw
   end
 
 end

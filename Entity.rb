@@ -4,8 +4,8 @@ class Entity
   end
   def initialize window, x, y, w, h
     @window = window
-    @@x = x;
-    @@y = y;
+    @x = x;
+    @y = y;
   end
 
   def update

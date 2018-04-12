@@ -5,8 +5,8 @@ class Creature < Entity
     attr_accessor :DEFAULT_WIDTH_SCALE, :DEFAULT_HEIGHT_SCALE
   end
 
-  @@xmove = 0
-  @@ymove = 0
+  @xmove = 0
+  @ymove = 0
   @@DEFAULT_HEALTH = 10
   @@DEFAULT_SPEED = 3
   @DEFAULT_WIDTH_SCALE = @DEFAULT_HEIGHT_SCALE = 1
@@ -40,39 +40,39 @@ class Creature < Entity
   end
 
   def moveX
-      if @@xmove > 0
+      if @xmove > 0
         puts "RUNNING RIGHT"
-        tx = (@@xmove + @@x + @bx + @bw) / 64
-        if !collided(tx, ((@@y + @by) / 64)) and !collided(tx, ((@@y + @by + @bh) / 64))
-          @@x += @@xmove
+        tx = (@xmove + @x + @bx + @bw) / 64
+        if !collided(tx, ((@y + @by) / 64)) and !collided(tx, ((@y + @by + @bh) / 64))
+          @x += @xmove
         else
-          @@x = tx * 64 - @bx - @bw - 1
+          @x = tx * 64 - @bx - @bw - 1
         end
-      elsif @@xmove < 0
+      elsif @xmove < 0
         puts "RUNNING LEFT"
-        tx = (@@xmove + @@x + @bx) / 64
-          if !collided(tx, ((@@y + @by) / 64)) and !collided(tx, ((@@y + @by + @bh) / 64))
-            @@x += @@xmove
+        tx = (@xmove + @x + @bx) / 64
+          if !collided(tx, ((@y + @by) / 64)) and !collided(tx, ((@y + @by + @bh) / 64))
+            @x += @xmove
           else
-            @@x = tx * 64 + 64 - @bx
+            @x = tx * 64 + 64 - @bx
           end
         end
       end
 
   def moveY
-    if @@ymove > 0
-      ty = (@@y + @@ymove + @by + @bh) / 64
-      if !collided((@@x + @bx) / 64, ty) and !collided((@@x + @bx + @bw) / 64, ty)
-        @@y += @@ymove
+    if @ymove > 0
+      ty = (@y + @ymove + @by + @bh) / 64
+      if !collided((@x + @bx) / 64, ty) and !collided((@x + @bx + @bw) / 64, ty)
+        @y += @ymove
       else
-        @@y = ty * 64 - @by - @bw - 1
+        @y = ty * 64 - @by - @bw - 1
       end
-    elsif @@ymove < 0
-      ty = (@@y + @@ymove + @by) / 64
-      if !collided((@@x + @bx) / 64, ty) and !collided((@@x + @bx + @bw) / 64, ty)
-        @@y += @@ymove
+    elsif @ymove < 0
+      ty = (@y + @ymove + @by) / 64
+      if !collided((@x + @bx) / 64, ty) and !collided((@x + @bx + @bw) / 64, ty)
+        @y += @ymove
       else
-        @@y = ty * 64 + 64 - @by
+        @y = ty * 64 + 64 - @by
       end
     end
   end

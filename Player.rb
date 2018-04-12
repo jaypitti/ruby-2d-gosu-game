@@ -5,7 +5,7 @@ class Player < Creature
   def initialize window, x, y
     super window, x, y, Creature.DEFAULT_WIDTH_SCALE, Creature.DEFAULT_HEIGHT_SCALE
     @widow = window
-    @@xmove = @@ymove = 10
+    @xmove = @ymove = 10
     # image
     @assets = Assets.new
     @animation_down = Animation.new(250, @assets.player_down)
@@ -16,8 +16,8 @@ class Player < Creature
     # Only defined twice so others would know what @s is
     @scale = @s = 2
     # center image
-    @@x = @window.getWidth/2  - @width/2 + x
-    @@y = @window.getHeight/2  - @height/2 + y
+    @x = @window.getWidth/2  - @width/2 + x
+    @y = @window.getHeight/2  - @height/2 + y
     # direction and movement
     @direction = :right
     @frame = 0
@@ -39,11 +39,11 @@ class Player < Creature
   end
 
   def getX
-    return @@x
+    return @x
   end
 
   def getY
-    return @@y
+    return @y
   end
 
   def getWidth
@@ -62,32 +62,32 @@ class Player < Creature
     @frame += 1
     @moving = false
     if !@moving
-      @@xmove = 0
-      @@ymove = 0
+      @xmove = 0
+      @ymove = 0
     end
     if @window.getGame.button_down? Gosu::KbLeft
       puts "LEFT"
       @direction = :left
       @moving = true
-      @@xmove = -@@speed
+      @xmove = -@@speed
     end
     if @window.getGame.button_down? Gosu::KbRight
       puts 'RIGHT'
       @direction = :right
       @moving = true
-      @@xmove = @@speed
+      @xmove = @@speed
     end
     if @window.getGame.button_down? Gosu::KbUp
       puts 'UP'
       @direction = :up
       @moving = true
-      @@ymove = -@@speed
+      @ymove = -@@speed
     end
     if @window.getGame.button_down? Gosu::KbDown
       puts 'DOWN'
       @direction = :down
       @moving = true
-      @@ymove = @@speed
+      @ymove = @@speed
     end
   end
 
@@ -99,23 +99,23 @@ class Player < Creature
     image = @assets.player
     if @moving
       if @direction == :left
-        @animation_x.getFrame.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 2, 2
+        @animation_x.getFrame.draw @x - @window.getGameCamera.getXoffset, @y - @window.getGameCamera.getYoffset, 1, 2, 2
       elsif @direction == :right
-        @animation_x.getFrame.draw @@x + (@width * 2) - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, -2, 2
+        @animation_x.getFrame.draw @x + (@width * 2) - @window.getGameCamera.getXoffset, @y - @window.getGameCamera.getYoffset, 1, -2, 2
       elsif @direction == :up
-        @animation_up.getFrame.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 2, 2
+        @animation_up.getFrame.draw @x - @window.getGameCamera.getXoffset, @y - @window.getGameCamera.getYoffset, 1, 2, 2
       elsif @direction == :down
-        @animation_down.getFrame.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 2, 2
+        @animation_down.getFrame.draw @x - @window.getGameCamera.getXoffset, @y - @window.getGameCamera.getYoffset, 1, 2, 2
       end
     else
       if @direction == :left
-        image.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 2, 2
+        image.draw @x - @window.getGameCamera.getXoffset, @y - @window.getGameCamera.getYoffset, 1, 2, 2
       elsif @direction == :right
-        image.draw @@x + (@width * 2) - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, -2, 2
+        image.draw @x + (@width * 2) - @window.getGameCamera.getXoffset, @y - @window.getGameCamera.getYoffset, 1, -2, 2
       elsif @direction == :up
-        image.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 2, 2
+        image.draw @x - @window.getGameCamera.getXoffset, @y - @window.getGameCamera.getYoffset, 1, 2, 2
       elsif @direction == :down
-        image.draw @@x - @window.getGameCamera.getXoffset, @@y - @window.getGameCamera.getYoffset, 1, 2, 2
+        image.draw @x - @window.getGameCamera.getXoffset, @y - @window.getGameCamera.getYoffset, 1, 2, 2
       end
     end
   end

@@ -1,11 +1,14 @@
 require_relative './SpriteSheet.rb'
 
 class Assets
-  attr_accessor :player, :player_down, :player_up, :player_x, :stone, :grass, :tiles, :spritesheet
+  attr_accessor :player, :player_down, :player_up, :player_x, :plant, :stone, :grass, :tiles, :spritesheet
   @@tiles
   class << self
     def grass
       return @grass
+    end
+    def plant
+      return SpriteSheet.new.tileCrop 0, 32 * 11, 32, 32
     end
     def stone
       return @stone
