@@ -10,8 +10,8 @@ class Assets
     def stone
       return @stone
     end
-    def tiles(x, y)
-       @@tiles[x][y]
+    def tiles(x)
+       return @@tiles[x]
     end
   end
 
@@ -27,9 +27,9 @@ class Assets
   end
 
   def setTiles
-    @@tiles[0][0] = @grass
-    @@tiles[0][14] = @stone
-    @@tiles[0][11] = @plant
+    @@tiles[0] = @grass
+    @@tiles[1] = @stone
+    @@tiles[2] = @plant
   end
 
 end

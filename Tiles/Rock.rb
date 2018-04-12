@@ -3,7 +3,8 @@ require_relative './singleTile.rb'
 
 class Rock
   def initialize id
-    SingleTile.new Assets.stone, 1
+    super
+    Tile.new Assets.stone, self, id
   end
 
   def isSolid

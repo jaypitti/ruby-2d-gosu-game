@@ -1,31 +1,25 @@
 class Tile
 
   @@Tiles = []
-  @@GrassTile = Grass.new(0)
 
   class << self
     def tiles(id)
       return @@Tiles[id]
     end
   end
-  def initialize asset, id
+
+  def initialize asset, tile, id
+    @tile = tile
     @@Tiles[id] = self;
   end
 
   def update
   end
 
+  def getTile(x, y)
+    return @tile
+  end
+
   def draw
-  end
-end
-
-class Grass < Tile
-  def initialize id
-    super
-    Tile.new Assets.grass, id
-  end
-
-  def isSolid
-    return false
   end
 end

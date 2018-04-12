@@ -10,7 +10,7 @@ class World < Assets
     @w = w
     @h = h
 
-    @TILEWIDTH = @TILEHEIGHT = 32
+    @TILEWIDTH = @TILEHEIGHT = 64
 
     @worldMap = Array.new(@w * @w){Array.new(@h * @h)}
     @numberMap = Array.new(@w * @w){Array.new(@h * @h, 0)}
@@ -46,23 +46,27 @@ class World < Assets
   def update
   end
 
+  def getTile(x, y)
+    return @numberMap[x][y]
+  end
+
   def draw
     @xStart = [0, @window.getGameCamera.getXoffset / @TILEWIDTH ].max
-    @xEnd = [@w, (@window.getGameCamera.getXoffset + @window.getWindowWidth) / @TILEWIDTH + 1].min
+    @xEnd = [@w, (@window.getGameCamera.getXoffset + @window.getWidth) / @TILEWIDTH + 1].min
     @yStart = [0, @window.getGameCamera.getYoffset / @TILEHEIGHT ].max
-    @yEnd = [@h, (@window.getGameCamera.getYoffset + @window.getWindowHeight) / @TILEWIDTH + 1].min
+    @yEnd = [@h, (@window.getGameCamera.getYoffset + @window.getHeight) / @TILEWIDTH + 1].min
 
     for x in (@yEnd).downto(@yStart)
       for y in (@xEnd).downto(@xStart)
         case @numberMap[x][y]
           when 0
-            @worldMap[x][y].draw(y * 32 - @window.getGameCamera.getXoffset.to_i,x * 32 - @window.getGameCamera.getYoffset.to_i, 0, 1, 1)
+            @worldMap[y][x].draw(y * 64 - @window.getGameCamera.getXoffset.to_i,x * 64 - @window.getGameCamera.getYoffset.to_i, 0, 2, 2)
           when 1
-            @worldMap[x][y].draw(y * 32 - @window.getGameCamera.getXoffset.to_i,x * 32 - @window.getGameCamera.getYoffset.to_i.to_i, 1, 1, 1)
+            @worldMap[y][x].draw(y * 64 - @window.getGameCamera.getXoffset.to_i,x * 64 - @window.getGameCamera.getYoffset.to_i.to_i, 1, 2, 2)
           when 2
-            @worldMap[x][y].draw(y * 32 - @window.getGameCamera.getXoffset.to_i,x * 32 - @window.getGameCamera.getYoffset.to_i, 1, 1, 1)
+            @worldMap[y][x].draw(y * 64 - @window.getGameCamera.getXoffset.to_i,x * 64 - @window.getGameCamera.getYoffset.to_i, 1, 2, 2)
           else
-            Assets.tiles(0, 0).draw(y * 32 - @window.getGameCamera.getXoffset.to_i, x * 32 - @window.getGameCamera.getYoffset.to_i, 0, 1, 1)
+            Assets.tiles(0).draw(y * 64 - @window.getGameCamera.getXoffset.to_i, x * 64 - @window.getGameCamera.getYoffset.to_i, 0, 2, 2)
         end
       end
     end
@@ -73,16 +77,24 @@ class World < Assets
       for y in (@h).downto(0)
         case @numberMap[x][y]
           when 0
-            @worldMap[x][y] = Assets.tiles(0, 0)
+            @worldMap[x][y] = Assets.tiles(0)
           when 1
-            @worldMap[x][y] = Assets.tiles(0, 14)
+            @worldMap[x][y] = Assets.tiles(1)
           when 2
-            @worldMap[x][y] = Assets.tiles(0, 11)
+            @worldMap[x][y] = Assets.tiles(2)
           else
-            @worldMap[x][y] = Assets.tiles(0, 0)
+            @worldMap[x][y] = Assets.tiles(0)
         end
       end
     end
+  end
+
+  def getWidth
+    return @w
+  end
+
+  def getHeight
+    return @h
   end
 
   def loadWorld path

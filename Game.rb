@@ -2,6 +2,7 @@ require 'gosu'
 require './Player.rb'
 require './World.rb'
 require './Camera.rb'
+require './GameHandler'
 
 class Game < Gosu::Window
 
@@ -15,9 +16,11 @@ class Game < Gosu::Window
     @windowW = width
     @windowH = height
     @width = @height = 32
-    @player = Player.new self, 0, 0
-    @camera = Camera.new self, 0, 0
-    @world = World.new self, "./worlds/world1.txt",  20, 20
+    @handler = GameHandler.new self
+    @camera = Camera.new @handler, 0, 0
+    @player = Player.new @handler, 0, 0
+    @world = World.new @handler, "./worlds/world1.txt",  20, 20
+    @handler.setWorld @world
     @background_image = Gosu::Image.new 'images/tilesets/bg.png', :tileable => true
     @tiles = Gosu::Image.load_tiles 'images/tilesets/bg.png', @width, @height
 
