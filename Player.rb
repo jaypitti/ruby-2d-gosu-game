@@ -5,7 +5,7 @@ class Player < Creature
   def initialize window, x, y
     super window, x, y, Creature.DEFAULT_WIDTH_SCALE, Creature.DEFAULT_HEIGHT_SCALE
     @widow = window
-    @xmove = @ymove = 10
+    @xmove = @ymove = 0
     # image
     @assets = Assets.new
     @animation_down = Animation.new(250, @assets.player_down)
@@ -16,14 +16,13 @@ class Player < Creature
     # Only defined twice so others would know what @s is
     @scale = @s = 2
     # center image
-    @x = @window.getWidth/2  - @width/2 + x
-    @y = @window.getHeight/2  - @height/2 + y
+    @x = x * 64
+    @y = y * 64
     # direction and movement
     @direction = :right
     @frame = 0
     @moving = false
 
-    @animated = Gosu::Image.load_tiles './images/spritesheets/player-1.png', @width, @height
   end
 
   def update
@@ -40,6 +39,14 @@ class Player < Creature
 
   def getX
     return @x
+  end
+
+  def setX v
+    @x = v
+  end
+
+  def setY v
+    @x = v
   end
 
   def getY
@@ -66,28 +73,24 @@ class Player < Creature
       @ymove = 0
     end
     if @window.getGame.button_down? Gosu::KbLeft
-      puts "LEFT"
       @direction = :left
       @moving = true
-      @xmove = -@@speed
+      @xmove = -@speed
     end
     if @window.getGame.button_down? Gosu::KbRight
-      puts 'RIGHT'
       @direction = :right
       @moving = true
-      @xmove = @@speed
+      @xmove = @speed
     end
     if @window.getGame.button_down? Gosu::KbUp
-      puts 'UP'
       @direction = :up
       @moving = true
-      @ymove = -@@speed
+      @ymove = -@speed
     end
     if @window.getGame.button_down? Gosu::KbDown
-      puts 'DOWN'
       @direction = :down
       @moving = true
-      @ymove = @@speed
+      @ymove = @speed
     end
   end
 
@@ -95,7 +98,6 @@ class Player < Creature
     # @move and @idle are the same size,
     # so we can use the same frame calc.
     # f = @frame % @animated.size
-    f = Gosu.milliseconds / 100 % @animated.size
     image = @assets.player
     if @moving
       if @direction == :left

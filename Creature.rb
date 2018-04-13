@@ -19,29 +19,39 @@ class Creature < Entity
     @bh = 32
     @window = window
     @@health = @@DEFAULT_HEALTH
-    @@speed = @@DEFAULT_SPEED
+    @speed = @@DEFAULT_SPEED
   end
 
   def update
   end
 
   def move
-    moveX
-    moveY
+    puts @xmove, @ymove
+    if !entityCollided @xmove, 0 
+      moveX
+    end
+    if !entityCollided 0, @ymove
+      moveY
+    end
   end
 
   def collided xvar, yvar
     x = @window.getWorld.getTile(xvar, yvar)
-    if x == 0
+    if x == 0 || x == 3
       return false
     else
       return true
     end
   end
 
-  def moveX
+  def moveX direction = "none"
+    # if direction == "left"
+    #   @x += -100
+    # end
+    # if direction == "left"
+    #   @x += 100
+    # end
       if @xmove > 0
-        puts "RUNNING RIGHT"
         tx = (@xmove + @x + @bx + @bw) / 64
         if !collided(tx, ((@y + @by) / 64)) and !collided(tx, ((@y + @by + @bh) / 64))
           @x += @xmove
@@ -49,7 +59,6 @@ class Creature < Entity
           @x = tx * 64 - @bx - @bw - 1
         end
       elsif @xmove < 0
-        puts "RUNNING LEFT"
         tx = (@xmove + @x + @bx) / 64
           if !collided(tx, ((@y + @by) / 64)) and !collided(tx, ((@y + @by + @bh) / 64))
             @x += @xmove
@@ -59,7 +68,13 @@ class Creature < Entity
         end
       end
 
-  def moveY
+  def moveY direction = "none"
+    # if direction == "top"
+    #   @y += 10
+    # end
+    # if direction == "bottom"
+    #   @y += -10
+    # end
     if @ymove > 0
       ty = (@y + @ymove + @by + @bh) / 64
       if !collided((@x + @bx) / 64, ty) and !collided((@x + @bx + @bw) / 64, ty)
@@ -86,10 +101,10 @@ class Creature < Entity
   end
 
   def getSpeed
-    return @@speed
+    return @speed
   end
 
   def setSpeed newSpeed
-    @@speed = newSpeed
+    @speed = newSpeed
   end
 end

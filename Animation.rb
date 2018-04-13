@@ -23,7 +23,6 @@ class Animation
   end
 
   def getFrame
-    puts @frames[@i]
     return @frames[@i]
   end
 

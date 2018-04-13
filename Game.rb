@@ -19,7 +19,6 @@ class Game < Gosu::Window
     @width = @height = 32
     @handler = GameHandler.new self
     @camera = Camera.new @handler, 0, 0
-    @player = Player.new @handler, 0, 0
     @world = World.new @handler, "./worlds/world1.txt",  20, 20
     @handler.setWorld @world
     @background_image = Gosu::Image.new 'images/tilesets/bg.png', :tileable => true
@@ -53,14 +52,12 @@ class Game < Gosu::Window
   end
 
   def update
-    @camera.move(1, 1)
-    @player.update
+    @camera.move(0, 0)
+    @world.update
   end
 
   def draw
     @world.draw
-    @player.draw
-    @tree.draw
   end
 
 end

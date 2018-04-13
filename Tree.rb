@@ -5,15 +5,19 @@ class Tree < StaticEntity
   def initialize window, x, y, w, h
     super window, x, y, w, h
     @window = window
-    @x = x
-    @y = y
+    @x = x * 64
+    @y = y * 64
+
+    @tree = Assets.plant
   end
 
   def update
   end
 
   def draw
-    Assets.plant.draw(@x * 64 - @window.getGameCamera.getXoffset, @y * 64 - @window.getGameCamera.getYoffset, 1, 2, 2)
+    @tree.draw(@x - @window.getGameCamera.getXoffset, @y - @window.getGameCamera.getYoffset, 1, 2, 2)
   end
+
+
 
 end

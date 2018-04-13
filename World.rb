@@ -1,5 +1,8 @@
 require 'gosu'
 require './Assets.rb'
+require './EntityManager.rb'
+require './Player.rb'
+require './Tree.rb'
 
 class World < Assets
   @worldMap
@@ -7,29 +10,32 @@ class World < Assets
 
   def initialize window, path, w, h
     @window = window
+    @player = player
     @w = w
     @h = h
+
+    @entityManager = EntityManager.new @window, Player.new(window, 10, 10)
 
     @TILEWIDTH = @TILEHEIGHT = 64
 
     @worldMap = Array.new(@w * @w){Array.new(@h * @h)}
     @numberMap = Array.new(@w * @w){Array.new(@h * @h, 0)}
 
-    checkForPath path
+    if path
+      loadWorld path
+      renderWorld @numberMap, @w, @h
+    else
+      generateMap
+    end
   end
 
   def checkForPath path
-    if !path
       for y in (@h).downto(0)
         for x in (@w).downto(0)
           @numberMap[x][y] = getRandomNumber
         end
         renderWorld @numberMap
       end
-    else
-      loadWorld path
-      renderWorld @numberMap, @w, @h
-    end
   end
 
   def getRandomNumber
@@ -44,6 +50,7 @@ class World < Assets
     end
 
   def update
+    @entityManager.update
   end
 
   def getTile(x, y)
@@ -51,6 +58,7 @@ class World < Assets
   end
 
   def draw
+
     @xStart = [0, @window.getGameCamera.getXoffset / @TILEWIDTH ].max
     @xEnd = [@w, (@window.getGameCamera.getXoffset + @window.getWidth) / @TILEWIDTH + 1].min
     @yStart = [0, @window.getGameCamera.getYoffset / @TILEHEIGHT ].max
@@ -65,11 +73,14 @@ class World < Assets
             @worldMap[y][x].draw(y * 64 - @window.getGameCamera.getXoffset.to_i,x * 64 - @window.getGameCamera.getYoffset.to_i.to_i, 1, 2, 2)
           when 2
             @worldMap[y][x].draw(y * 64 - @window.getGameCamera.getXoffset.to_i,x * 64 - @window.getGameCamera.getYoffset.to_i, 1, 2, 2)
+          when 3
+            Assets.tiles(0).draw(y * 64 - @window.getGameCamera.getXoffset.to_i, x * 64 - @window.getGameCamera.getYoffset.to_i, 0, 2, 2)
           else
             Assets.tiles(0).draw(y * 64 - @window.getGameCamera.getXoffset.to_i, x * 64 - @window.getGameCamera.getYoffset.to_i, 0, 2, 2)
         end
       end
     end
+    @entityManager.draw
   end
 
   def renderWorld numberMap, w, h
@@ -82,6 +93,10 @@ class World < Assets
             @worldMap[x][y] = Assets.tiles(1)
           when 2
             @worldMap[x][y] = Assets.tiles(2)
+          when 3
+            @entityManager.addEntity(Tree.new @window, x, y, 10, 10)
+            @entities = @entityManager.getEntities
+            @worldMap[x][y] = Assets.tiles(0)
           else
             @worldMap[x][y] = Assets.tiles(0)
         end
@@ -100,7 +115,6 @@ class World < Assets
   def loadWorld path
     loadedFile = File.read(path)
     stringArray = loadedFile.split(/\s+/).map(&:to_i)
-    puts @numberMap.length
     for x in (@w).downto(0)
       for y in (@h).downto(0)
         @numberMap[x][y] = stringArray[(x + y * @w)]
@@ -108,5 +122,8 @@ class World < Assets
     end
   end
 
+  def getEntityManager
+    return @entityManager
+  end
 
 end
