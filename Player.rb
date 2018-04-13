@@ -66,32 +66,36 @@ class Player < Creature
   end
 
   def playerMove
+    @sound = Gosu::Song.new('sounds/running.mp3')
     @frame += 1
     puts @frame
-    @moving = false
     if !@moving
+      @sound.play true
       @xmove = 0
       @ymove = 0
     end
-    if @window.getGame.button_down? Gosu::KbLeft
+    if
+      @window.getGame.button_down? Gosu::KbLeft
       @direction = :left
       @moving = true
       @xmove = -@speed
-    end
-    if @window.getGame.button_down? Gosu::KbRight
+    elsif
+      @window.getGame.button_down? Gosu::KbRight
       @direction = :right
       @moving = true
       @xmove = @speed
-    end
-    if @window.getGame.button_down? Gosu::KbUp
+    elsif
+      @window.getGame.button_down? Gosu::KbUp
       @direction = :up
       @moving = true
       @ymove = -@speed
-    end
-    if @window.getGame.button_down? Gosu::KbDown
+    elsif
+      @window.getGame.button_down? Gosu::KbDown
       @direction = :down
       @moving = true
       @ymove = @speed
+    else
+      @moving = false
     end
   end
 
