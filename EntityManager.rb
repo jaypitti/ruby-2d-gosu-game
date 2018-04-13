@@ -12,8 +12,12 @@ class EntityManager
     @@entities.each_with_index do |e, i|
       e = @@entities[i]
       e.update
+      if !e.getActive
+        @@entities.delete(e)
+      end
     end
     @@entities = @@entities.sort_by {|x| x.getY + x.getHeight }
+
   end
 
   def draw

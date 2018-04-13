@@ -9,11 +9,15 @@ class Tree < StaticEntity
     @h = h
     @x = x * 64
     @y = y * 64
+    @health = 1
 
     @tree = Assets.plant
   end
 
   def update
+  end
+
+  def die
   end
 
   def draw

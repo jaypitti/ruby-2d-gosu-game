@@ -1,5 +1,7 @@
 require './Creature.rb'
 require './Animation'
+require 'ruby2d'
+require 'gosu'
 
 class Player < Creature
   def initialize window, x, y
@@ -23,6 +25,10 @@ class Player < Creature
     @frame = 0
     @moving = false
 
+    @cooldown = 800
+    @attacktimer = 800
+    @lastAttack = 0
+
   end
 
   def update
@@ -35,6 +41,53 @@ class Player < Creature
     @animation_x.update
 
     @window.getGameCamera.centerOnEntity self
+
+    checkAttacks
+  end
+
+  def checkAttacks
+    @cooldown = 800
+    @attacktimer += Gosu::milliseconds - @lastAttack
+    @lastAttack = Gosu::milliseconds
+    if (@attacktimer < @cooldown)
+      puts "ASDFASDFASFD"
+      return
+    else
+      # Rectangle.new(x: 0, y: 0, width: 200, height: 100, z: 0, color: 'white')
+      cb = gCB(0,0)
+      rect = Rectangle.new()
+      arSize = 20
+      rect.width = arSize
+      rect.height = arSize
+
+      if @window.getGame.button_down? Gosu::KbUp
+        rect.x = cb[:x] + cb[:width] / 2 - arSize / 2
+        rect.y = cb[:y] - arSize
+      elsif @window.getGame.button_down? Gosu::KbDown
+        rect.x = cb[:x] + cb[:width] / 2 - arSize / 2
+        rect.y = cb[:y] + cb[:height]
+      elsif @window.getGame.button_down? Gosu::KbLeft
+        rect.x = cb[:x] - arSize
+        rect.y = cb[:y] + cb[:height] / 2 - arSize / 2
+      elsif @window.getGame.button_down? Gosu::KbRight
+        rect.x = cb[:x] + cb[:width]
+        rect.y = cb[:y] + cb[:height] / 2 - arSize / 2
+      else
+        return
+      end
+      @attacktimer = 0
+      for e in @window.getWorld.getEntityManager.getEntities
+        next if e == @window.getWorld.getEntityManager.getPlayer
+          if (
+            e.gCB(0,0)[:x] < rect.x + rect.width &&
+            e.gCB(0,0)[:x] + e.gCB(0,0)[:width] > rect.x &&
+            e.gCB(0,0)[:y] < rect.y + rect.height &&
+            e.gCB(0,0)[:height] + e.gCB(0,0)[:y] > rect.y)
+            e.hit(1)
+            return
+          end
+      end
+    end
   end
 
   def getX
@@ -64,33 +117,65 @@ class Player < Creature
   def move
     super
   end
-
-  def playerMove
+  def playerAttack
     @sound = Gosu::Song.new('sounds/running.mp3')
     @frame += 1
-    puts @frame
     if !@moving
       @sound.play true
       @xmove = 0
       @ymove = 0
     end
     if
-      @window.getGame.button_down? Gosu::KbLeft
+      @window.getGame.button_down? Gosu::KbA
       @direction = :left
       @moving = true
       @xmove = -@speed
     elsif
-      @window.getGame.button_down? Gosu::KbRight
+      @window.getGame.button_down? Gosu::KbD
       @direction = :right
       @moving = true
       @xmove = @speed
     elsif
-      @window.getGame.button_down? Gosu::KbUp
+      @window.getGame.button_down? Gosu::KbW
       @direction = :up
       @moving = true
       @ymove = -@speed
     elsif
-      @window.getGame.button_down? Gosu::KbDown
+      @window.getGame.button_down? Gosu::KbS
+      @direction = :down
+      @moving = true
+      @ymove = @speed
+    end
+  end
+
+  def die
+  end
+
+  def playerMove
+    @sound = Gosu::Song.new('sounds/running.mp3')
+    @frame += 1
+    if !@moving
+      @sound.play true
+      @xmove = 0
+      @ymove = 0
+    end
+    if
+      @window.getGame.button_down? Gosu::KbA
+      @direction = :left
+      @moving = true
+      @xmove = -@speed
+    elsif
+      @window.getGame.button_down? Gosu::KbD
+      @direction = :right
+      @moving = true
+      @xmove = @speed
+    elsif
+      @window.getGame.button_down? Gosu::KbW
+      @direction = :up
+      @moving = true
+      @ymove = -@speed
+    elsif
+      @window.getGame.button_down? Gosu::KbS
       @direction = :down
       @moving = true
       @ymove = @speed

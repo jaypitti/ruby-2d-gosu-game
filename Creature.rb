@@ -7,7 +7,6 @@ class Creature < Entity
 
   @xmove = 0
   @ymove = 0
-  @@DEFAULT_HEALTH = 10
   @@DEFAULT_SPEED = 3
   @DEFAULT_WIDTH_SCALE = @DEFAULT_HEIGHT_SCALE = 1
 
@@ -18,7 +17,6 @@ class Creature < Entity
     @bw = 32
     @bh = 32
     @window = window
-    @@health = @@DEFAULT_HEALTH
     @speed = @@DEFAULT_SPEED
   end
 
@@ -26,7 +24,6 @@ class Creature < Entity
   end
 
   def move
-    puts @xmove, @ymove
     if !entityCollided @xmove, 0
       moveX
     end
@@ -90,6 +87,9 @@ class Creature < Entity
         @y = ty * 64 + 64 - @by
       end
     end
+  end
+
+  def die
   end
 
   def getHealth

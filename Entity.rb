@@ -1,6 +1,7 @@
 require 'gosu'
 
 class Entity
+  @@DEFAULT_HEALTH = 10
   class << self
     attr_accessor :x, :y
   end
@@ -8,6 +9,8 @@ class Entity
     @window = window
     @w = 1
     @h = 1
+    @health = @@DEFAULT_HEALTH
+    @active = true
     @x = x * 64;
     @y = y * 64;
   end
@@ -61,6 +64,25 @@ class Entity
   end
 
   def draw
+  end
+
+  def die
+  end
+
+  def hit dmg
+    @health = @health - dmg
+    if @health <= 0
+      @active = false
+      die
+    end
+  end
+
+  def getHealth
+    return @health
+  end
+
+  def getActive
+    return @active
   end
 
 end
