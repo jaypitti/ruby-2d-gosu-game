@@ -10,6 +10,7 @@ class World < Assets
 
   def initialize window, path, w, h
     @window = window
+    #Width and Height of loaded map
     @w = w
     @h = h
 
@@ -75,7 +76,7 @@ class World < Assets
           when 3
             Assets.tiles(0).draw(y * 64 - @window.getGameCamera.getXoffset.to_i, x * 64 - @window.getGameCamera.getYoffset.to_i, 0, 2, 2)
           else
-            Assets.tiles(0).draw(y * 64 - @window.getGameCamera.getXoffset.to_i, x * 64 - @window.getGameCamera.getYoffset.to_i, 0, 2, 2)
+            Assets.tiles(1).draw(y * 64 - @window.getGameCamera.getXoffset.to_i, x * 64 - @window.getGameCamera.getYoffset.to_i, 0, 2, 2)
         end
       end
     end

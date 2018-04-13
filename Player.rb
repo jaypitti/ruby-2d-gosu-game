@@ -8,9 +8,9 @@ class Player < Creature
     @xmove = @ymove = 0
     # image
     @assets = Assets.new
-    @animation_down = Animation.new(250, @assets.player_down)
-    @animation_up = Animation.new(250, @assets.player_up)
-    @animation_x = Animation.new(250, @assets.player_x)
+    @animation_down = Animation.new(100, @assets.player_down)
+    @animation_up = Animation.new(100, @assets.player_up)
+    @animation_x = Animation.new(100, @assets.player_x)
 
     @width = @height = 32
     # Only defined twice so others would know what @s is

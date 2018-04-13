@@ -27,7 +27,7 @@ class Creature < Entity
 
   def move
     puts @xmove, @ymove
-    if !entityCollided @xmove, 0 
+    if !entityCollided @xmove, 0
       moveX
     end
     if !entityCollided 0, @ymove

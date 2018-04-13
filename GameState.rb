@@ -7,8 +7,8 @@ require './GameHandler'
 class GameState < State
   def initialize game, handler
     @handler = handler
-    
-    @world = World.new @handler, "./worlds/world1.txt",  20, 20
+
+    @world = World.new @handler, "./worlds/world2.txt",  40, 40
     @handler.setWorld @world
   end
 
