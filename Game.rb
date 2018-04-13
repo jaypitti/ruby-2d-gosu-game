@@ -2,8 +2,10 @@ require 'gosu'
 require './Player.rb'
 require './World.rb'
 require './Camera.rb'
-require './Tree.rb'
 require './GameHandler'
+require './State'
+require './GameState'
+require 'gosu'
 
 class Game < Gosu::Window
 
@@ -14,17 +16,16 @@ class Game < Gosu::Window
   def initialize width=800, height=600, fullscreen=false
     super
     self.caption = "DEV"
+
+    @handler = GameHandler.new self
+
+    @camera = Camera.new @handler, 0, 0
+    @gameState = GameState.new @handler, @handler
+    State.setState @gameState
+
     @windowW = width
     @windowH = height
     @width = @height = 32
-    @handler = GameHandler.new self
-    @camera = Camera.new @handler, 0, 0
-    @world = World.new @handler, "./worlds/world1.txt",  20, 20
-    @handler.setWorld @world
-    @background_image = Gosu::Image.new 'images/tilesets/bg.png', :tileable => true
-    @tiles = Gosu::Image.load_tiles 'images/tilesets/bg.png', @width, @height
-    @tree = Tree.new @handler, 5, 5, 0, 0
-
   end
 
   def button_down id
@@ -52,12 +53,15 @@ class Game < Gosu::Window
   end
 
   def update
-    @camera.move(0, 0)
-    @world.update
+    if State.getState != nil
+      @gameState.update
+    end
   end
 
   def draw
-    @world.draw
+    if State.getState != nil
+      @gameState.draw
+    end
   end
 
 end

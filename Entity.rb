@@ -21,7 +21,6 @@ class Entity
           e.gCB(0,0)[:x] + e.gCB(0,0)[:width] > gCB(0,0)[:x] &&
           e.gCB(0,0)[:y] < gCB(xOffset,xOffset)[:y] + gCB(xOffset,xOffset)[:height] &&
           e.gCB(0,0)[:height] + e.gCB(0,0)[:y] > gCB(xOffset,xOffset)[:y])
-          puts "collision"
           collided = true
           if (e.gCB(0,0)[:x] < gCB(xOffset,xOffset)[:x])
             p.setX(@x += 1)
@@ -39,7 +38,6 @@ class Entity
             p.setY(@y += 1 * 2)
             return true
           end
-          puts e.gCB(0,0), gCB(xOffset,yOffset)
         end
       # puts e.getCollisionBounds(0,0), getCollisionBounds(xOffset,yOffset)
       end

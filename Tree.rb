@@ -5,6 +5,8 @@ class Tree < StaticEntity
   def initialize window, x, y, w, h
     super window, x, y, w, h
     @window = window
+    @w = w
+    @h = h
     @x = x * 64
     @y = y * 64
 
@@ -22,5 +24,7 @@ class Tree < StaticEntity
     return @y
   end
 
-
+  def getHeight
+    return @h
+  end
 end

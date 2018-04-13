@@ -1,23 +1,23 @@
 class GameHandler
   attr_accessor :world
-  def initialize window
-    @window = window
+  def initialize game
+    @game = game
   end
 
   def getGame
-    return @window
+    return @game
   end
 
   def getGameCamera
-    return @window.getGameCamera
+    return @game.getGameCamera
   end
 
   def getWidth
-    @window.width
+    @game.width
   end
 
   def getHeight
-    @window.height
+    @game.height
   end
 
   def setWorld world

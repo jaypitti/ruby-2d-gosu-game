@@ -10,11 +10,10 @@ class World < Assets
 
   def initialize window, path, w, h
     @window = window
-    @player = player
     @w = w
     @h = h
 
-    @entityManager = EntityManager.new @window, Player.new(window, 10, 10)
+    @entityManager = EntityManager.new @window, Player.new(@window, 10, 10)
 
     @TILEWIDTH = @TILEHEIGHT = 64
 

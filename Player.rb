@@ -67,6 +67,7 @@ class Player < Creature
 
   def playerMove
     @frame += 1
+    puts @frame
     @moving = false
     if !@moving
       @xmove = 0
