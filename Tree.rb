@@ -18,6 +18,9 @@ class Tree < StaticEntity
     @tree.draw(@x - @window.getGameCamera.getXoffset, @y - @window.getGameCamera.getYoffset, 1, 2, 2)
   end
 
+  def getY
+    return @y
+  end
 
 
 end

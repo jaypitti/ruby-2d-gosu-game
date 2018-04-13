@@ -8,11 +8,22 @@ class EntityManager
     addEntity(@player)
   end
 
+  def orderEntities x, y
+    if a.getY < b.getY
+      return 1
+    elsif a.getY > b.getY
+      return 1
+    else
+      return 0
+    end
+  end
+
   def update
     @@entities.each_with_index do |e, i|
       e = @@entities[i]
       e.update
     end
+    @@entities = @@entities.sort_by {|x| x.getY}
   end
 
   def draw
