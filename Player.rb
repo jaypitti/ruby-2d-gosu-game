@@ -75,7 +75,7 @@ class Player < Creature
       else
         return
       end
-      @attacktimer = 0
+    @attacktimer = 0
       for e in @window.getWorld.getEntityManager.getEntities
         next if e == @window.getWorld.getEntityManager.getPlayer
           if (
@@ -83,7 +83,7 @@ class Player < Creature
             e.gCB(0,0)[:x] + e.gCB(0,0)[:width] > rect.x &&
             e.gCB(0,0)[:y] < rect.y + rect.height &&
             e.gCB(0,0)[:height] + e.gCB(0,0)[:y] > rect.y)
-            e.hit(1)
+            e.hit(3)
             return
           end
       end

@@ -88,14 +88,13 @@ class World < Assets
       for y in (@h).downto(0)
         case @numberMap[x][y]
           when 0
-            @worldMap[x][y] = Assets.tiles(0)
+            @worldMap[x][y] = Assets.tiles(1)
           when 1
             @worldMap[x][y] = Assets.tiles(1)
           when 2
             @worldMap[x][y] = Assets.tiles(2)
           when 3
             @entityManager.addEntity(Tree.new @window, x, y, 10, 10)
-            @entities = @entityManager.getEntities
             @worldMap[x][y] = Assets.tiles(0)
           else
             @worldMap[x][y] = Assets.tiles(0)

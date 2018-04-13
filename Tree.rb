@@ -9,7 +9,7 @@ class Tree < StaticEntity
     @h = h
     @x = x * 64
     @y = y * 64
-    @health = 1
+    @health = 10
 
     @tree = Assets.plant
   end
