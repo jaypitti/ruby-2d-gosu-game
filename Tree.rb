@@ -1,5 +1,6 @@
 require './StaticEntity.rb'
 require './Assets.rb'
+require './Item'
 
 class Tree < StaticEntity
   def initialize window, x, y, w, h
@@ -9,7 +10,6 @@ class Tree < StaticEntity
     @h = h
     @x = x * 64
     @y = y * 64
-    @health = 10
 
     @tree = Assets.plant
   end
@@ -18,6 +18,9 @@ class Tree < StaticEntity
   end
 
   def die
+    item = Item.cactus.createNew @x, @y
+    @window.getWorld.getItemManager.addItem(item)
+    item.setPosition @x, @y
   end
 
   def draw

@@ -2,23 +2,18 @@ require './Creature.rb'
 require './Animation'
 require 'ruby2d'
 require 'gosu'
-require './Inventory'
 
-class Player < Creature
+class Monster < Creature
   def initialize window, x, y
     super window, x, y, Creature.DEFAULT_WIDTH_SCALE, Creature.DEFAULT_HEIGHT_SCALE
-
     @widow = window
     @xmove = @ymove = 0
+    @speed = 1
     # image
     @assets = Assets.new
     @animation_down = Animation.new(100, @assets.player_down)
     @animation_up = Animation.new(100, @assets.player_up)
     @animation_x = Animation.new(100, @assets.player_x)
-
-    @inventory = Inventory.new window
-
-    @inv = false
 
     @width = @height = 64
     # Only defined twice so others would know what @s is
@@ -26,6 +21,7 @@ class Player < Creature
     # center image
     @x = x * 64
     @y = y * 64
+
     # direction and movement
     @direction = :right
     @frame = 0
@@ -41,15 +37,10 @@ class Player < Creature
     super
     playerMove
     move
-    inventory
-
-    @inventory.update
 
     @animation_down.update
     @animation_up.update
     @animation_x.update
-
-    @window.getGameCamera.centerOnEntity self
 
     checkAttacks
   end
@@ -98,10 +89,6 @@ class Player < Creature
     end
   end
 
-  def getCollisionBox
-    return {x1: @x, y1: @y, x2: @x + 24, y2: @y + 32}
-  end
-
   def getX
     return @x
   end
@@ -128,10 +115,6 @@ class Player < Creature
 
   def move
     super
-  end
-
-  def inventory
-
   end
 
   def playerAttack
@@ -169,35 +152,43 @@ class Player < Creature
   end
 
   def playerMove
-    @sound = Gosu::Song.new('sounds/running.mp3')
-    @frame += 1
-    if !@moving
-      @sound.play true
-      @xmove = 0
-      @ymove = 0
-    end
-    if
-      @window.getGame.button_down? Gosu::KbA
-      @direction = :left
-      @moving = true
-      @xmove = -@speed
-    elsif
-      @window.getGame.button_down? Gosu::KbD
-      @direction = :right
-      @moving = true
-      @xmove = @speed
-    elsif
-      @window.getGame.button_down? Gosu::KbW
-      @direction = :up
-      @moving = true
-      @ymove = -@speed
-    elsif
-      @window.getGame.button_down? Gosu::KbS
-      @direction = :down
-      @moving = true
-      @ymove = @speed
+    @cooldown = 800
+    @attacktimer += Gosu::milliseconds - @lastAttack
+    @lastAttack = Gosu::milliseconds
+    if (@attacktimer < @cooldown)
+      return
     else
-      @moving = false
+      move = rand(1..5)
+      @frame += 1
+      if !@moving
+        @xmove = 0
+        @ymove = 0
+      end
+      if move == 1
+        @direction = :down
+        @moving = false
+        @xmove = 0
+        @ymove = 0
+      elsif move == 1
+        @direction = :left
+        @moving = true
+        @xmove = -@speed
+      elsif move == 2
+        @direction = :right
+        @moving = true
+        @xmove = @speed
+      elsif move == 3
+        @direction = :up
+        @moving = true
+        @ymove = -@speed
+      elsif move == 4
+        @direction = :down
+        @moving = true
+        @ymove = @speed
+      else
+        @moving = false
+      end
+      @attacktimer = 0
     end
   end
 
@@ -210,7 +201,7 @@ class Player < Creature
       if @direction == :left
         @animation_x.getFrame.draw @x - @window.getGameCamera.getXoffset, @y - @window.getGameCamera.getYoffset, 1, 2, 2
       elsif @direction == :right
-        @animation_x.getFrame.draw @x + (@width ) - @window.getGameCamera.getXoffset, @y - @window.getGameCamera.getYoffset, 1, -2, 2
+        @animation_x.getFrame.draw @x + (@width) - @window.getGameCamera.getXoffset, @y - @window.getGameCamera.getYoffset, 1, -2, 2
       elsif @direction == :up
         @animation_up.getFrame.draw @x - @window.getGameCamera.getXoffset, @y - @window.getGameCamera.getYoffset, 1, 2, 2
       elsif @direction == :down
@@ -228,7 +219,4 @@ class Player < Creature
       end
     end
   end
-  if @inventory
-  @inventory.draw
-end
 end

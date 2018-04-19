@@ -16,6 +16,7 @@ class Creature < Entity
     @by = 32
     @bw = 32
     @bh = 32
+
     @window = window
     @speed = @@DEFAULT_SPEED
   end
@@ -33,8 +34,8 @@ class Creature < Entity
   end
 
   def collided xvar, yvar
-    x = @window.getWorld.getTile(xvar, yvar)
-    if x == 0 || x == 3
+    tile = @window.getWorld.getTile(xvar, yvar)
+    if tile == 0 || tile == 3
       return false
     else
       return true
