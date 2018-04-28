@@ -13,9 +13,7 @@ class Inventory
       @active = false
     end
     if !@active
-      puts "INNNNACTIVE"
     else
-      puts "HEY HO"
     end
   end
 

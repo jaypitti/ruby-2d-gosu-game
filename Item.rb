@@ -1,3 +1,4 @@
+
 require './Assets'
 require './GameHandler'
 require 'ruby2d'

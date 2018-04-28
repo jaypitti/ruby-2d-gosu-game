@@ -15,7 +15,7 @@ class World < Assets
     @w = w
     @h = h
 
-    @entityManager = EntityManager.new @window, Player.new(@window, 0, 0)
+    @entityManager = EntityManager.new @window, Player.new(@window, 5, 5)
     @ItemManager = ItemManager.new handler
 
     @TILEWIDTH = @TILEHEIGHT = 64
@@ -76,13 +76,15 @@ class World < Assets
             @worldMap[y][x].draw(y * 64 - @window.getGameCamera.getXoffset.to_i,x * 64 - @window.getGameCamera.getYoffset.to_i, 1, 2, 2)
           when 3
             Assets.tiles(0).draw(y * 64 - @window.getGameCamera.getXoffset.to_i, x * 64 - @window.getGameCamera.getYoffset.to_i, 0, 2, 2)
+          when 4
+            Assets.tiles(0).draw(y * 64 - @window.getGameCamera.getXoffset.to_i, x * 64 - @window.getGameCamera.getYoffset.to_i, 0, 2, 2)
           else
             Assets.tiles(2).draw(y * 64 - @window.getGameCamera.getXoffset.to_i, x * 64 - @window.getGameCamera.getYoffset.to_i, 0, 2, 2)
         end
       end
     end
     @ItemManager.draw
-    
+
     @entityManager.draw
   end
 
@@ -98,6 +100,9 @@ class World < Assets
             @worldMap[x][y] = Assets.tiles(2)
           when 3
             @entityManager.addEntity(Tree.new @window, x, y, 10, 10)
+            @worldMap[x][y] = Assets.tiles(0)
+          when 4
+            @entityManager.addEntity(Monster.new @window, x, y)
             @worldMap[x][y] = Assets.tiles(0)
           else
             @worldMap[x][y] = Assets.tiles(0)

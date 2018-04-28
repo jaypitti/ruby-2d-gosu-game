@@ -44,7 +44,7 @@ class Assets
     @player_x[3] = @spritesheet.playerCrop @w, 32 * 3 + 12, @w, @h
 
     @stone = @spritesheet.tileCrop @w * 3, @h, @w, @h
-    @grass = @spritesheet.tileCrop @w * rand(1..2), @h * rand(1..2), @w, @h
+    @grass = @spritesheet.tileCrop @w * 1, @h * rand(1..2), @w, @h
     @plant = @spritesheet.tileCrop 0, @h * 11, @w, @h
     setTiles
   end

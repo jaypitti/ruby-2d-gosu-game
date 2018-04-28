@@ -35,7 +35,7 @@ class Creature < Entity
 
   def collided xvar, yvar
     tile = @window.getWorld.getTile(xvar, yvar)
-    if tile == 0 || tile == 3
+    if tile == 0 || tile == 3 || tile == 4
       return false
     else
       return true
