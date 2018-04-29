@@ -60,8 +60,17 @@ class EntityManager
   end
 
   def addEntity(e)
-    puts e == @player
     @entities.push e unless @entities.include?(e)
+  end
+
+  def setPlayer(e)
+    puts e
+    @entities.map do |i|
+      if i == @player
+        @player = e
+        break
+      end
+    end
   end
 
   def getEntity(id)
@@ -74,10 +83,6 @@ class EntityManager
 
   def getPlayer
     return @player
-  end
-
-  def setPlayer player
-    @player = player
   end
 
   def getHandler

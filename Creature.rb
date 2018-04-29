@@ -94,11 +94,11 @@ class Creature < Entity
   end
 
   def getHealth
-    return @@health
+    return @health
   end
 
   def setHealth newHealth
-    @@health = newHealth
+    @health = newHealth
   end
 
   def getSpeed

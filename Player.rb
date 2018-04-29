@@ -3,17 +3,19 @@ require './Animation'
 require 'ruby2d'
 require 'gosu'
 require './Inventory'
+require './Camera.rb'
+require 'pry'
 
 class Player < Creature
-  attr_reader :uuid, :player, :x, :y
-
+  attr_reader :uuid, :player, :x, :y, :health
+  attr_accessor :active
   def type
     self.class.name.downcase
   end
 
   def self.from_sprite(window, sprite)
     if sprite[0].length == 36
-      Player.new(window, sprite[4], sprite[5], sprite[0])
+      Player.new(window, sprite[4].to_i, sprite[5].to_i, sprite[0])
     end
   end
 
@@ -46,9 +48,14 @@ class Player < Creature
     @frame = 0
     @moving = false
 
+    @health = 1
+
     @cooldown = 800
     @attacktimer = 800
     @lastAttack = 0
+
+    @camera = Camera.new window, 0, 0
+
 
   end
 
@@ -62,13 +69,17 @@ class Player < Creature
     move
     inventory
 
+    if @health <= 0
+      @active = false
+    end
+
     @inventory.update
 
     @animation_down.update
     @animation_up.update
     @animation_x.update
 
-    @window.getGameCamera.centerOnEntity self
+    @camera.centerOnEntity self
 
     checkAttacks
   end
@@ -249,5 +260,15 @@ class Player < Creature
   end
   if @inventory
   @inventory.draw
+end
+def getCamera
+  return @camera
+end
+
+def setHealth h
+  @health = h
+  if h <= 0
+    die
+  end
 end
 end

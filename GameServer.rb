@@ -36,8 +36,8 @@ class Server
                 if message.size == 10
                   case message[0] # first item in message tells us what to do, the rest is the sprite
                   when 'obj'
-                    @players[user] = message[1..8] unless @players[user]
-                    @objects[message[1]] = message[1..8]
+                    @players[user] = message[1..9] unless @players[user]
+                    @objects[message[1]] = message[1..9]
                   when 'del'
                     @objects.delete message[1]
                   end

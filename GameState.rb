@@ -5,10 +5,10 @@ require './Camera.rb'
 require './GameHandler'
 
 class GameState < State
-  def initialize game, handler
+  def initialize game, handler, player
     @handler = handler
 
-    @world = World.new @handler, "./worlds/world2.txt",  40, 40
+    @world = World.new @handler, "./worlds/world2.txt",  40, 40, player
     @handler.setWorld @world
   end
 
@@ -17,7 +17,9 @@ class GameState < State
   end
 
   def update
+    if @handler.getGameCamera
     @handler.getGameCamera.move(0, 0)
+  end
     @world.update
   end
 

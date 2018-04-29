@@ -1,4 +1,5 @@
 require 'gosu'
+require 'pry'
 
 class Entity
   @@DEFAULT_HEALTH = 3

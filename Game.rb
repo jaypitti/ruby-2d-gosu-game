@@ -2,6 +2,7 @@ require 'gosu'
 require 'celluloid/io'
 require 'socket'
 require './Player.rb'
+require './Monster.rb'
 require './World.rb'
 require './Camera.rb'
 require './GameHandler'
@@ -48,9 +49,8 @@ class Game < Gosu::Window
     @name = name
 
     @handler = GameHandler.new self
-
-    @camera = Camera.new @handler, 0, 0
-    @gameState = GameState.new @handler, @handler
+    @player = Player.new(@handler, 5, 5)
+    @gameState = GameState.new @handler, @handler, @player
     State.setState @gameState
 
     @windowW = width
@@ -68,7 +68,7 @@ class Game < Gosu::Window
   end
 
   def add_to_message_queue(msg_type, sprite)
-    @messages << "#{msg_type}|#{sprite.uuid}|#{sprite.type}|1|#{@name}|#{sprite.x}|#{sprite.y}|20|10|blue"
+    @messages << "#{msg_type}|#{sprite.uuid}|#{sprite.type}|1|#{@name}|#{sprite.x}|#{sprite.y}|#{sprite.health}|10|#{sprite.active}"
   end
 
   def button_down id
@@ -76,15 +76,28 @@ class Game < Gosu::Window
   end
 
   def draw_player_names
-  @font.draw("#{@name}", @handler.getWorld.getEntityManager.getPlayer.getX - @handler.getGameCamera.getXoffset + 15, @handler.getWorld.getEntityManager.getPlayer.getY - @handler.getGameCamera.getYoffset - 20, 5, 1, 1, Gosu::Color::AQUA)
+    @font.draw("#{@name}", @handler.getWorld.getEntityManager.getPlayer.getX - @handler.getGameCamera.getXoffset + 15, @handler.getWorld.getEntityManager.getPlayer.getY - @handler.getGameCamera.getYoffset - 20, 5, 1, 1, Gosu::Color::AQUA)
+    @players.keys.each_with_index do |name, i|
+      if @players[name] != @player && @players[name].health >= 1
+        @font.draw("#{name}", @players[name].x - @handler.getGameCamera.getXoffset + 15, @players[name].y - @handler.getGameCamera.getYoffset - 20, 5)
+      end
+    end
   end
 
   def getGameCamera
-    return @camera
+    return @handler.getWorld.getEntityManager.getPlayer.getCamera
   end
 
   def getWidth
     return @width
+  end
+
+  def deletePlayer player
+    @players.each do |e|
+      if player == e[1]
+        @players.delete(e)
+      end
+    end
   end
 
   def getHeight
@@ -118,14 +131,13 @@ class Game < Gosu::Window
 
     @client.send_message @messages.join("\n")
     @messages.clear
-
+    i = 1
     if msg = @client.read_message
     @valid_sprites.clear
     data = msg.split("\n")
-    # create sprites or alter existing sprites from messages from the server
     data.each do |row|
       sprite = row.split("|")
-      if sprite.size == 8 # make sure we have the complete sprite
+      if sprite.size == 9
         player = sprite[3]
         @valid_sprites << sprite[0]
         case sprite[1]
@@ -133,10 +145,11 @@ class Game < Gosu::Window
           unless player == @player
             if @players[player]
                @players[player].warp_to(sprite[4], sprite[5], sprite[6])
+               @player.active = sprite[8]
             else
               @players[player] = Player.from_sprite(@handler, sprite)
-              if @players[player] != @player
-                @handler.getWorld.getEntityManager.setPlayer @players[player]
+              if @player.uuid == sprite[0]
+              else
                 @handler.getWorld.getEntityManager.addEntity(@players[player])
               end
             end

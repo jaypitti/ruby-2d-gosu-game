@@ -4,6 +4,13 @@ require 'ruby2d'
 require 'gosu'
 
 class Monster < Creature
+
+  def self.from_sprite(window, sprite)
+    if sprite[0].length == 36
+      Player.new(window, 5, 5, sprite[0])
+    end
+  end
+  
   def initialize window, x, y
     super window, x, y, Creature.DEFAULT_WIDTH_SCALE, Creature.DEFAULT_HEIGHT_SCALE
     @widow = window

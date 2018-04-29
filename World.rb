@@ -9,13 +9,13 @@ class World < Assets
   @worldMap
   @numberMap
 
-  def initialize handler, path, w, h
+  def initialize handler, path, w, h, player
     @window = handler
     #Width and Height of loaded map
     @w = w
     @h = h
 
-    @entityManager = EntityManager.new @window, Player.new(@window, 5, 5)
+    @entityManager = EntityManager.new @window, player
     @ItemManager = ItemManager.new handler
 
     @TILEWIDTH = @TILEHEIGHT = 64
