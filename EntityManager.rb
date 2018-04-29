@@ -60,6 +60,7 @@ class EntityManager
   end
 
   def addEntity(e)
+    puts e == @player
     @entities.push e unless @entities.include?(e)
   end
 
@@ -73,6 +74,10 @@ class EntityManager
 
   def getPlayer
     return @player
+  end
+
+  def setPlayer player
+    @player = player
   end
 
   def getHandler

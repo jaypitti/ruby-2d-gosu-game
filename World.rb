@@ -60,10 +60,10 @@ class World < Assets
   end
 
   def draw
-    @xStart = [0, @window.getGameCamera.getXoffset / @TILEWIDTH - 1].max
-    @xEnd = [@w, (@window.getGameCamera.getXoffset + @window.getWidth) / @TILEWIDTH].min
-    @yStart = [0, @window.getGameCamera.getYoffset / @TILEHEIGHT - 1].max
-    @yEnd = [@h, (@window.getGameCamera.getYoffset + @window.getHeight) / @TILEWIDTH].min
+    @xStart = [0, @window.getGameCamera.getXoffset.to_i / @TILEWIDTH - 1].max
+    @xEnd = [@w, (@window.getGameCamera.getXoffset.to_i + @window.getWidth) / @TILEWIDTH].min
+    @yStart = [0, @window.getGameCamera.getYoffset.to_i / @TILEHEIGHT - 1].max
+    @yEnd = [@h, (@window.getGameCamera.getYoffset.to_i + @window.getHeight) / @TILEWIDTH].min
 
     for x in (@yEnd).downto(@yStart)
       for y in (@xEnd).downto(@xStart)

@@ -27,28 +27,28 @@ class Server
     puts "#{user} has joined the arena."
 
     loop do
-      data = socket.readpartial(4096)
-      data_array = data.split("\n")
-      if data_array and !data_array.empty?
-        begin
-          data_array.each do |row|
-            message = row.split("|")
-            if message.size == 10
-              case message[0] # first item in message tells us what to do, the rest is the sprite
-              when 'obj'
-                @players[user] = message[1..9] unless @players[user]
-                @objects[message[1]] = message[1..9]
-              when 'del'
-                @objects.delete message[1]
+          data = socket.readpartial(4096)
+          data_array = data.split("\n")
+          if data_array and !data_array.empty?
+            begin
+              data_array.each do |row|
+                message = row.split("|")
+                if message.size == 10
+                  case message[0] # first item in message tells us what to do, the rest is the sprite
+                  when 'obj'
+                    @players[user] = message[1..8] unless @players[user]
+                    @objects[message[1]] = message[1..8]
+                  when 'del'
+                    @objects.delete message[1]
+                  end
+                end
+                response = String.new
+                @objects.each_value do |obj|
+                  (response << obj.join("|") << "\n") if obj
+                end
+                socket.write response
               end
-            end
-            response = String.new
-            @objects.each_value do |obj|
-              (response << obj.join("|") << "\n") if obj
-            end
-            socket.write response
-          end
-        rescue Exception => exception
+            rescue Exception => exception
           puts exception.backtrace
         end
       end # end data

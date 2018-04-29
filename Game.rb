@@ -8,6 +8,7 @@ require './GameHandler'
 require './State'
 require './GameState'
 require 'gosu'
+require 'pry'
 
 class Client
   include Celluloid::IO
@@ -25,11 +26,7 @@ class Client
   end
 
   def read_message
-    begin
-      socket.readpartial(4096) if @socket
-    rescue Exception => e
-      puts e.backtrace
-    end
+    @socket.readpartial(4096) if @socket
   end
 end
 
@@ -62,13 +59,16 @@ class Game < Gosu::Window
 
     @messages = Array.new
 
-    @players
+    @player = @handler.getWorld.getEntityManager.getPlayer
+    @players = Hash.new
+
+    @valid_sprites = Array.new
 
     add_to_message_queue('obj', @handler.getWorld.getEntityManager.getPlayer)
   end
 
-  def add_to_message_queue(msg_type, user)
-    @messages << "#{msg_type}|#{user.getX}|#{user.getY}"
+  def add_to_message_queue(msg_type, sprite)
+    @messages << "#{msg_type}|#{sprite.uuid}|#{sprite.type}|1|#{@name}|#{sprite.x}|#{sprite.y}|20|10|blue"
   end
 
   def button_down id
@@ -120,10 +120,34 @@ class Game < Gosu::Window
     @messages.clear
 
     if msg = @client.read_message
-      puts "hello"
+    @valid_sprites.clear
+    data = msg.split("\n")
+    # create sprites or alter existing sprites from messages from the server
+    data.each do |row|
+      sprite = row.split("|")
+      if sprite.size == 8 # make sure we have the complete sprite
+        player = sprite[3]
+        @valid_sprites << sprite[0]
+        case sprite[1]
+        when 'player'
+          unless player == @player
+            if @players[player]
+               @players[player].warp_to(sprite[4], sprite[5], sprite[6])
+            else
+              @players[player] = Player.from_sprite(@handler, sprite)
+              if @players[player] != @player
+                @handler.getWorld.getEntityManager.setPlayer @players[player]
+                @handler.getWorld.getEntityManager.addEntity(@players[player])
+              end
+            end
+          else
+            @player.points = sprite[7].to_i
+          end
+        end
+      end
     end
   end
-
+end
 end
 
 name = ARGV[0]

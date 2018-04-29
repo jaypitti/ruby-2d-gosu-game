@@ -5,8 +5,23 @@ require 'gosu'
 require './Inventory'
 
 class Player < Creature
-  def initialize window, x, y
+  attr_reader :uuid, :player, :x, :y
+
+  def type
+    self.class.name.downcase
+  end
+
+  def self.from_sprite(window, sprite)
+    if sprite[0].length == 36
+      Player.new(window, sprite[4], sprite[5], sprite[0])
+    end
+  end
+
+  def initialize window, x, y, uuid=SecureRandom.uuid
     super window, x, y, Creature.DEFAULT_WIDTH_SCALE, Creature.DEFAULT_HEIGHT_SCALE
+    @uuid = uuid
+
+    @type = "player"
 
     @widow = window
     @xmove = @ymove = 0
@@ -35,6 +50,10 @@ class Player < Creature
     @attacktimer = 800
     @lastAttack = 0
 
+  end
+
+  def warp_to(x, y, angle=nil)
+    @x, @y = x.to_f, y.to_f
   end
 
   def update
