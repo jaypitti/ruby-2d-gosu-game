@@ -67,7 +67,7 @@ class Game < Gosu::Window
   end
 
   def add_to_message_queue(msg_type, sprite)
-    @messages << "#{msg_type}|#{sprite.uuid}|#{sprite.type}|1|#{@name}|#{sprite.x}|#{sprite.y}|#{sprite.health}|10|#{sprite.player_hit}"
+    @messages << "#{msg_type}|#{sprite.uuid}|#{sprite.type}|#{sprite.direction}|#{@name}|#{sprite.x}|#{sprite.y}|#{sprite.health}|#{sprite.moving}|#{sprite.player_hit}"
   end
 
   def button_down id
@@ -127,6 +127,14 @@ class Game < Gosu::Window
     end
   end
 
+  def to_bool(str)
+    if str.downcase == "true"
+      return true
+    else
+      return false
+    end
+  end
+
   def server
     add_to_message_queue('obj', @player)
 
@@ -147,6 +155,8 @@ class Game < Gosu::Window
           unless player == @player.name
             if @players[player]
                @players[player].warp_to(sprite[4], sprite[5], sprite[6])
+               @players[player].direction = sprite[2].to_sym
+               @players[player].moving = to_bool(sprite[7])
                @player.reset_hit
                if sprite[8] == @player.name
                  @player.hit(3)

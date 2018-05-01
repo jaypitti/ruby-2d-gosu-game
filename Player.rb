@@ -8,7 +8,7 @@ require 'pry'
 
 class Player < Creature
   attr_reader :uuid, :player, :x, :y, :defaulthealth, :active
-  attr_accessor :active, :health, :name, :hit_player
+  attr_accessor :active, :health, :name, :hit_player, :direction, :moving
   def type
     self.class.name.downcase
   end

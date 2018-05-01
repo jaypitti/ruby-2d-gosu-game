@@ -15,7 +15,7 @@ class Entity
     @x = x * 64;
     @y = y * 64;
 
-    
+
   end
 
   def entityCollided xOffset, yOffset
@@ -43,7 +43,6 @@ class Entity
             return true
           end
         end
-      # puts e.getCollisionBounds(0,0), getCollisionBounds(xOffset,yOffset)
       end
       return false
   end
@@ -67,9 +66,7 @@ class Entity
   end
 
   def hit dmg
-    puts "HURT"
     @health = @health - dmg
-    puts @health
     if @health <= 0
       @active = false
       die
