@@ -7,23 +7,27 @@ require './Camera.rb'
 require 'pry'
 
 class Player < Creature
-  attr_reader :uuid, :player, :x, :y, :health
-  attr_accessor :active
+  attr_reader :uuid, :player, :x, :y, :defaulthealth, :active
+  attr_accessor :active, :health, :name, :hit_player
   def type
     self.class.name.downcase
   end
 
   def self.from_sprite(window, sprite)
     if sprite[0].length == 36
-      Player.new(window, sprite[4].to_i, sprite[5].to_i, sprite[0])
+      Player.new(window, sprite[4].to_i, sprite[5].to_i, sprite[3], sprite[0])
     end
   end
 
-  def initialize window, x, y, uuid=SecureRandom.uuid
+  def initialize window, x, y, name, uuid=SecureRandom.uuid
     super window, x, y, Creature.DEFAULT_WIDTH_SCALE, Creature.DEFAULT_HEIGHT_SCALE
     @uuid = uuid
 
+    @name = name
+
     @type = "player"
+
+    @hit_player = "name-hit-yet"
 
     @widow = window
     @xmove = @ymove = 0
@@ -47,8 +51,8 @@ class Player < Creature
     @direction = :right
     @frame = 0
     @moving = false
-
-    @health = 1
+    @defaulthealth = 10
+    @health = 10
 
     @cooldown = 800
     @attacktimer = 800
@@ -122,10 +126,26 @@ class Player < Creature
             e.gCB(0,0)[:y] < rect.y + rect.height &&
             e.gCB(0,0)[:height] + e.gCB(0,0)[:y] > rect.y)
             e.hit(3)
+            if e.is_player
+              @hit_player = e.name
+              return
+            end
             return
           end
       end
     end
+  end
+
+  def is_player
+    return true
+  end
+
+  def reset_hit
+    @hit_player = "none-hit-yet"
+  end
+
+  def player_hit
+    return @hit_player
   end
 
   def getCollisionBox
@@ -161,7 +181,6 @@ class Player < Creature
   end
 
   def inventory
-
   end
 
   def playerAttack

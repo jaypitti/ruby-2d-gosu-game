@@ -14,6 +14,8 @@ class Entity
     @active = true
     @x = x * 64;
     @y = y * 64;
+
+    
   end
 
   def entityCollided xOffset, yOffset
@@ -60,8 +62,14 @@ class Entity
   def die
   end
 
+  def is_player
+    return false
+  end
+
   def hit dmg
+    puts "HURT"
     @health = @health - dmg
+    puts @health
     if @health <= 0
       @active = false
       die

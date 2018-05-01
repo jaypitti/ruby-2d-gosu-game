@@ -49,7 +49,7 @@ class Game < Gosu::Window
     @name = name
 
     @handler = GameHandler.new self
-    @player = Player.new(@handler, 5, 5)
+    @player = Player.new(@handler, 5, 5, name)
     @gameState = GameState.new @handler, @handler, @player
     State.setState @gameState
 
@@ -59,7 +59,6 @@ class Game < Gosu::Window
 
     @messages = Array.new
 
-    @player = @handler.getWorld.getEntityManager.getPlayer
     @players = Hash.new
 
     @valid_sprites = Array.new
@@ -68,7 +67,7 @@ class Game < Gosu::Window
   end
 
   def add_to_message_queue(msg_type, sprite)
-    @messages << "#{msg_type}|#{sprite.uuid}|#{sprite.type}|1|#{@name}|#{sprite.x}|#{sprite.y}|#{sprite.health}|10|#{sprite.active}"
+    @messages << "#{msg_type}|#{sprite.uuid}|#{sprite.type}|1|#{@name}|#{sprite.x}|#{sprite.y}|#{sprite.health}|10|#{sprite.player_hit}"
   end
 
   def button_down id
@@ -76,10 +75,12 @@ class Game < Gosu::Window
   end
 
   def draw_player_names
-    @font.draw("#{@name}", @handler.getWorld.getEntityManager.getPlayer.getX - @handler.getGameCamera.getXoffset + 15, @handler.getWorld.getEntityManager.getPlayer.getY - @handler.getGameCamera.getYoffset - 20, 5, 1, 1, Gosu::Color::AQUA)
+    if @player.active
+      @font.draw("#{@name} - #{@player.health} / #{@player.defaulthealth} ", @player.getX - @handler.getGameCamera.getXoffset + 15, @player.getY - @handler.getGameCamera.getYoffset - 20, 5, 1, 1, Gosu::Color::AQUA)
+    end
     @players.keys.each_with_index do |name, i|
       if @players[name] != @player && @players[name].health >= 1
-        @font.draw("#{name}", @players[name].x - @handler.getGameCamera.getXoffset + 15, @players[name].y - @handler.getGameCamera.getYoffset - 20, 5)
+        @font.draw("#{name} - #{@players[name].health} / #{@players[name].defaulthealth}", @players[name].x - @handler.getGameCamera.getXoffset + 15, @players[name].y - @handler.getGameCamera.getYoffset - 20, 5)
       end
     end
   end
@@ -127,7 +128,7 @@ class Game < Gosu::Window
   end
 
   def server
-    add_to_message_queue('obj', @handler.getWorld.getEntityManager.getPlayer)
+    add_to_message_queue('obj', @player)
 
     @client.send_message @messages.join("\n")
     @messages.clear
@@ -139,13 +140,17 @@ class Game < Gosu::Window
       sprite = row.split("|")
       if sprite.size == 9
         player = sprite[3]
+        hit_player = sprite[8]
         @valid_sprites << sprite[0]
         case sprite[1]
         when 'player'
-          unless player == @player
+          unless player == @player.name
             if @players[player]
                @players[player].warp_to(sprite[4], sprite[5], sprite[6])
-               @player.active = sprite[8]
+               @player.reset_hit
+               if sprite[8] == @player.name
+                 @player.hit(3)
+               end
             else
               @players[player] = Player.from_sprite(@handler, sprite)
               if @player.uuid == sprite[0]
@@ -154,7 +159,6 @@ class Game < Gosu::Window
               end
             end
           else
-            @player.points = sprite[7].to_i
           end
         end
       end
