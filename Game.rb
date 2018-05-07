@@ -159,6 +159,7 @@ class Game < Gosu::Window
                @players[player].warp_to(sprite[4], sprite[5], sprite[6])
                @players[player].direction = sprite[2].to_sym
                @players[player].moving = to_bool(sprite[7])
+               @players[player].health = sprite[6]
                if sprite[8] == @player.name
                  @player.health = sprite[9].to_i
                end
