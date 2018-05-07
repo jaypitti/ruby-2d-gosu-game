@@ -1,4 +1,5 @@
 require 'gosu'
+require 'celluloid/current'
 require 'celluloid/io'
 require 'socket'
 require './Player.rb'

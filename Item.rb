@@ -75,8 +75,6 @@ class Item
   def setPosition x, y
     @x = x
     @y = y
-    @rect.x = x
-    @rect.y = y
   end
 
   def getCount

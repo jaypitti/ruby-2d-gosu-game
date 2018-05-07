@@ -1,4 +1,4 @@
-require 'celluloid/autostart'
+require 'celluloid/current'
 require 'celluloid/io'
 
 class Server
@@ -62,8 +62,8 @@ class Server
   end
 end
 
-server, port = ARGV[0] || "0.0.0.0", ARGV[1] || 1234
-supervisor = Server.supervise(server, port.to_i)
+server, port = ARGV[0] || "192.168.1.44", ARGV[1] || 1234
+Server.supervise as: :supervisor, args: [server, port.to_i]
 trap("INT") do
   supervisor.terminate
   exit
