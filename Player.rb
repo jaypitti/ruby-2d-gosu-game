@@ -1,6 +1,5 @@
 require './Creature.rb'
 require './Animation'
-require 'ruby2d'
 require 'gosu'
 require './Inventory'
 require './Camera.rb'
@@ -8,7 +7,7 @@ require 'pry'
 
 class Player < Creature
   attr_reader :uuid, :player, :x, :y, :defaulthealth, :active
-  attr_accessor :active, :health, :name, :hit_player, :direction, :moving
+  attr_accessor :active, :health, :name, :hit_player, :hit_player_health, :direction, :moving
   def type
     self.class.name.downcase
   end
@@ -28,6 +27,7 @@ class Player < Creature
     @type = "player"
 
     @hit_player = "name-hit-yet"
+    @hit_player_health = 10
 
     @widow = window
     @xmove = @ymove = 0
@@ -97,23 +97,23 @@ class Player < Creature
     else
       # Rectangle.new(x: 0, y: 0, width: 200, height: 100, z: 0, color: 'white')
       cb = gCB(0,0)
-      rect = Rectangle.new()
+      rect = {x: 0, y: 0, w: 32, h: 32}
       arSize = 20
-      rect.width = arSize
-      rect.height = arSize
+      rect[:w] = arSize
+      rect[:h] = arSize
 
       if @window.getGame.button_down? Gosu::KbUp
-        rect.x = cb[:x] + cb[:width] / 2 - arSize / 2
-        rect.y = cb[:y] - arSize
+        rect[:x] = cb[:x] + cb[:width] / 2 - arSize / 2
+        rect[:y] = cb[:y] - arSize
       elsif @window.getGame.button_down? Gosu::KbDown
-        rect.x = cb[:x] + cb[:width] / 2 - arSize / 2
-        rect.y = cb[:y] + cb[:height]
+        rect[:x] = cb[:x] + cb[:width] / 2 - arSize / 2
+        rect[:y] = cb[:y] + cb[:height]
       elsif @window.getGame.button_down? Gosu::KbLeft
-        rect.x = cb[:x] - arSize
-        rect.y = cb[:y] + cb[:height] / 2 - arSize / 2
+        rect[:x] = cb[:x] - arSize
+        rect[:y] = cb[:y] + cb[:height] / 2 - arSize / 2
       elsif @window.getGame.button_down? Gosu::KbRight
-        rect.x = cb[:x] + cb[:width]
-        rect.y = cb[:y] + cb[:height] / 2 - arSize / 2
+        rect[:x] = cb[:x] + cb[:width]
+        rect[:y] = cb[:y] + cb[:height] / 2 - arSize / 2
       else
         return
       end
@@ -121,14 +121,14 @@ class Player < Creature
       for e in @window.getWorld.getEntityManager.getEntities
         next if e == @window.getWorld.getEntityManager.getPlayer
           if (
-            e.gCB(0,0)[:x] < rect.x + rect.width &&
-            e.gCB(0,0)[:x] + e.gCB(0,0)[:width] > rect.x &&
-            e.gCB(0,0)[:y] < rect.y + rect.height &&
-            e.gCB(0,0)[:height] + e.gCB(0,0)[:y] > rect.y)
+            e.gCB(0,0)[:x] < rect[:x] + rect[:w] &&
+            e.gCB(0,0)[:x] + e.gCB(0,0)[:width] > rect[:x] &&
+            e.gCB(0,0)[:y] < rect[:y] + rect[:y] &&
+            e.gCB(0,0)[:height] + e.gCB(0,0)[:y] > rect[:y])
             e.hit(3)
             if e.is_player
               @hit_player = e.name
-              return
+              @hit_player_health = e.health
             end
             return
           end
@@ -215,6 +215,9 @@ class Player < Creature
   end
 
   def die
+    player_item = Item.player_item.createNew @x, @y
+    @window.getWorld.getItemManager.addItem(item)
+    item.setPosition @x, @y
   end
 
   def playerMove

@@ -13,6 +13,9 @@ class Assets
     def stone
       return SpriteSheet.new.tileCrop 32 * 3, 32, 32, 32
     end
+    def player
+      return SpriteSheet.new.playerCrop 32, 32 * 2 + 8, 32, 32 + 3
+    end
     def tiles(x)
        return @@tiles[x]
     end
@@ -25,7 +28,6 @@ class Assets
     @player_down = []
     @player_up = []
     @player_x = []
-    @player
     @player = @spritesheet.playerCrop @w, 32 * 2 + 8, @w, @h + 3
 
     @player_down[0] = @spritesheet.playerCrop 0, 32 * 2 + 8, @w, @h + 3

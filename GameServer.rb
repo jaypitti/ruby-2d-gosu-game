@@ -33,11 +33,11 @@ class Server
             begin
               data_array.each do |row|
                 message = row.split("|")
-                if message.size == 10
+                if message.size == 11
                   case message[0] # first item in message tells us what to do, the rest is the sprite
                   when 'obj'
-                    @players[user] = message[1..9] unless @players[user]
-                    @objects[message[1]] = message[1..9]
+                    @players[user] = message[1..10] unless @players[user]
+                    @objects[message[1]] = message[1..10]
                   when 'del'
                     @objects.delete message[1]
                   end

@@ -21,6 +21,7 @@ class Entity
   def entityCollided xOffset, yOffset
     for e in @window.getWorld.getEntityManager.getEntities
         next if e == @window.getWorld.getEntityManager.getPlayer
+        next if e == self
         if (
           e.gCB(0,0)[:x] < gCB(xOffset,xOffset)[:x] + gCB(0,0)[:width] &&
           e.gCB(0,0)[:x] + e.gCB(0,0)[:width] > gCB(0,0)[:x] &&

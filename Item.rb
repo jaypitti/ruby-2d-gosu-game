@@ -1,7 +1,6 @@
 
 require './Assets'
 require './GameHandler'
-require 'ruby2d'
 
 class Item
 
@@ -12,8 +11,6 @@ class Item
     @@ITEMHEIGHT = 1
 
     @pickedup = false
-
-    @rect = Rectangle.new()
 
     @texture = texture
     @handler
@@ -29,6 +26,10 @@ class Item
 
   def self.cactus
     return Item.new Assets.plant, "Cactus", 0
+  end
+
+  def self.player_item
+    return Item.new Assets.player, "Player", 1
   end
 
   def pickedup

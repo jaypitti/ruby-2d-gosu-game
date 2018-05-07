@@ -1,6 +1,5 @@
 require './Creature.rb'
 require './Animation'
-require 'ruby2d'
 require 'gosu'
 
 class Monster < Creature
@@ -10,12 +9,12 @@ class Monster < Creature
       Player.new(window, 5, 5, sprite[0])
     end
   end
-  
+
   def initialize window, x, y
     super window, x, y, Creature.DEFAULT_WIDTH_SCALE, Creature.DEFAULT_HEIGHT_SCALE
     @widow = window
-    @xmove = @ymove = 0
     @speed = 1
+    @xmove, @ymove = 0,0
     # image
     @assets = Assets.new
     @animation_down = Animation.new(100, @assets.player_down)
@@ -42,7 +41,7 @@ class Monster < Creature
 
   def update
     super
-    playerMove
+    monstermove
     move
 
     @animation_down.update
@@ -61,23 +60,23 @@ class Monster < Creature
     else
       # Rectangle.new(x: 0, y: 0, width: 200, height: 100, z: 0, color: 'white')
       cb = gCB(0,0)
-      rect = Rectangle.new()
+      rect = {x: 0, y: 0, w: 32, h: 32}
       arSize = 20
-      rect.width = arSize
-      rect.height = arSize
+      rect[:w] = arSize
+      rect[:h] = arSize
 
       if @window.getGame.button_down? Gosu::KbUp
-        rect.x = cb[:x] + cb[:width] / 2 - arSize / 2
-        rect.y = cb[:y] - arSize
+        rect[:x] = cb[:x] + cb[:width] / 2 - arSize / 2
+        rect[:y] = cb[:y] - arSize
       elsif @window.getGame.button_down? Gosu::KbDown
-        rect.x = cb[:x] + cb[:width] / 2 - arSize / 2
-        rect.y = cb[:y] + cb[:height]
+        rect[:x] = cb[:x] + cb[:width] / 2 - arSize / 2
+        rect[:y] = cb[:y] + cb[:height]
       elsif @window.getGame.button_down? Gosu::KbLeft
-        rect.x = cb[:x] - arSize
-        rect.y = cb[:y] + cb[:height] / 2 - arSize / 2
+        rect[:x] = cb[:x] - arSize
+        rect[:y] = cb[:y] + cb[:height] / 2 - arSize / 2
       elsif @window.getGame.button_down? Gosu::KbRight
-        rect.x = cb[:x] + cb[:width]
-        rect.y = cb[:y] + cb[:height] / 2 - arSize / 2
+        rect[:x] = cb[:x] + cb[:width]
+        rect[:y] = cb[:y] + cb[:height] / 2 - arSize / 2
       else
         return
       end
@@ -85,31 +84,15 @@ class Monster < Creature
       for e in @window.getWorld.getEntityManager.getEntities
         next if e == @window.getWorld.getEntityManager.getPlayer
           if (
-            e.gCB(0,0)[:x] < rect.x + rect.width &&
-            e.gCB(0,0)[:x] + e.gCB(0,0)[:width] > rect.x &&
-            e.gCB(0,0)[:y] < rect.y + rect.height &&
-            e.gCB(0,0)[:height] + e.gCB(0,0)[:y] > rect.y)
+            e.gCB(0,0)[:x] < rect[:x] + rect[:w] &&
+            e.gCB(0,0)[:x] + e.gCB(0,0)[:width] > rect[:x] &&
+            e.gCB(0,0)[:y] < rect[:y] + rect[:y] &&
+            e.gCB(0,0)[:height] + e.gCB(0,0)[:y] > rect[:y])
             e.hit(3)
             return
           end
       end
     end
-  end
-
-  def getX
-    return @x
-  end
-
-  def setX v
-    @x = v
-  end
-
-  def setY v
-    @x = v
-  end
-
-  def getY
-    return @y
   end
 
   def getWidth
@@ -124,74 +107,50 @@ class Monster < Creature
     super
   end
 
-  def playerAttack
-    @sound = Gosu::Song.new('sounds/running.mp3')
-    @frame += 1
-    if !@moving
-      @sound.play true
-      @xmove = 0
-      @ymove = 0
-    end
-    if
-      @window.getGame.button_down? Gosu::KbA
-      @direction = :left
-      @moving = true
-      @xmove = -@speed
-    elsif
-      @window.getGame.button_down? Gosu::KbD
-      @direction = :right
-      @moving = true
-      @xmove = @speed
-    elsif
-      @window.getGame.button_down? Gosu::KbW
-      @direction = :up
-      @moving = true
-      @ymove = -@speed
-    elsif
-      @window.getGame.button_down? Gosu::KbS
-      @direction = :down
-      @moving = true
-      @ymove = @speed
-    end
+  def getY
+    return @y
+  end
+
+  def getX
+    return @x
   end
 
   def die
   end
 
-  def playerMove
+  def monstermove
     @cooldown = 800
     @attacktimer += Gosu::milliseconds - @lastAttack
     @lastAttack = Gosu::milliseconds
     if (@attacktimer < @cooldown)
       return
     else
-      move = rand(1..5)
+      m = rand(0..10)
       @frame += 1
       if !@moving
         @xmove = 0
         @ymove = 0
       end
-      if move == 1
-        @direction = :down
-        @moving = false
-        @xmove = 0
-        @ymove = 0
-      elsif move == 1
+      if m == 0..1
         @direction = :left
         @moving = true
         @xmove = -@speed
-      elsif move == 2
+      elsif m == 2..3
         @direction = :right
         @moving = true
         @xmove = @speed
-      elsif move == 3
+      elsif m == 4..5
         @direction = :up
         @moving = true
         @ymove = -@speed
-      elsif move == 4
+      elsif move == 6..7
         @direction = :down
         @moving = true
         @ymove = @speed
+      elsif move == 8..11
+        @moving = false
+        @xmove = 0
+        @ymove = 0
       else
         @moving = false
       end

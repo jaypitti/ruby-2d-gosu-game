@@ -67,7 +67,7 @@ class Game < Gosu::Window
   end
 
   def add_to_message_queue(msg_type, sprite)
-    @messages << "#{msg_type}|#{sprite.uuid}|#{sprite.type}|#{sprite.direction}|#{@name}|#{sprite.x}|#{sprite.y}|#{sprite.health}|#{sprite.moving}|#{sprite.player_hit}"
+    @messages << "#{msg_type}|#{sprite.uuid}|#{sprite.type}|#{sprite.direction}|#{@name}|#{sprite.x}|#{sprite.y}|#{sprite.health}|#{sprite.moving}|#{sprite.player_hit}|#{sprite.hit_player_health}"
   end
 
   def button_down id
@@ -136,6 +136,7 @@ class Game < Gosu::Window
   end
 
   def server
+
     add_to_message_queue('obj', @player)
 
     @client.send_message @messages.join("\n")
@@ -146,7 +147,7 @@ class Game < Gosu::Window
     data = msg.split("\n")
     data.each do |row|
       sprite = row.split("|")
-      if sprite.size == 9
+      if sprite.size == 10
         player = sprite[3]
         hit_player = sprite[8]
         @valid_sprites << sprite[0]
@@ -157,10 +158,10 @@ class Game < Gosu::Window
                @players[player].warp_to(sprite[4], sprite[5], sprite[6])
                @players[player].direction = sprite[2].to_sym
                @players[player].moving = to_bool(sprite[7])
-               @player.reset_hit
                if sprite[8] == @player.name
-                 @player.hit(3)
+                 @player.health = sprite[9].to_i
                end
+               @player.reset_hit
             else
               @players[player] = Player.from_sprite(@handler, sprite)
               if @player.uuid == sprite[0]
@@ -171,6 +172,12 @@ class Game < Gosu::Window
           else
           end
         end
+      end
+    end
+    @players.delete_if do |user, player|
+      if !@valid_sprites.include?(player.uuid)
+        player.health = 0
+        return true
       end
     end
   end
