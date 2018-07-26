@@ -17,10 +17,12 @@ the Celluloid gem.
 ### Getting Started
 
 to start the game navigate to the folder which you cloned this from in your
-Terminal and use "ruby Game.rb `User Name`"
+Terminal and use  
+"ruby Game.rb `User Name`"
 
 to start the server and game navigate to the folder which you cloned this from
-in your Terminal, open 2 tabs and use "ruby GameServer.rb" then use "ruby Game.rb `User` `IP` `Port`"
+in your Terminal, open 2 tabs and use  
+"ruby GameServer.rb" then use "ruby Game.rb `User` `IP` `Port`"
 
 ## Built With
 
