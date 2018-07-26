@@ -24,9 +24,9 @@ in your Terminal, open 2 tabs and use "ruby GameServer.rb" then use "ruby Game.r
 
 ## Built With
 
-* [Dropwizard]RUBY
-* [Maven]GOSU
-* [ROME]CELLULOID
+RUBY
+GOSU
+CELLULOID
 
 
 ## Version
