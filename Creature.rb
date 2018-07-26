@@ -53,6 +53,7 @@ class Creature < Entity
         tx = (@xmove + @x + @bx + @bw) / 64
         if !collided(tx, ((@y + @by) / 64)) and !collided(tx, ((@y + @by + @bh) / 64))
           @x += @xmove
+          @xSpeed = 1
         else
           @x = tx * 64 - @bx - @bw - 1
         end

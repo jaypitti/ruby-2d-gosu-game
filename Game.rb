@@ -162,8 +162,8 @@ class Game < Gosu::Window
                @players[player].health = sprite[6].to_i
                if sprite[8] == @player.name
                  @player.health = sprite[9].to_i
+                 @player.reset_hit
                end
-               @player.reset_hit
             else
               @players[player] = Player.from_sprite(@handler, sprite)
               if @player.uuid == sprite[0]

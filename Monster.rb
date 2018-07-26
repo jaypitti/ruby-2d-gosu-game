@@ -103,9 +103,69 @@ class Monster < Creature
     return @height
   end
 
-  def move
-    super
+  def chaseY
+    @player = @window.getWorld.getEntityManager.getPlayer
+    @moving = true;
+    @xSpeed = 2;
+    if @window.getWorld.getEntityManager.getPlayer.getX < @x
+      @xmove = -@xSpeed;
+      moveX :left;
+      @direction = :left;
+    end
+    if @window.getWorld.getEntityManager.getPlayer.getX > @x
+      @xmove = @xSpeed;
+      moveX :right;
+      @direction = :right;
+    end
   end
+
+  def chaseX
+    @player = @window.getWorld.getEntityManager.getPlayer
+    @moving = true;
+    @ySpeed = 2;
+    if @window.getWorld.getEntityManager.getPlayer.getY < @y - 2
+      @ymove = -@ySpeed;
+      moveY :up;
+      @direction = :up;
+    end
+    if @window.getWorld.getEntityManager.getPlayer.getY > @y + 2
+      @ymove = @ySpeed;
+      moveY :down;
+      @direction = :down;
+    end
+  end
+
+  def euclidean_distance(p1,p2)
+    sum_of_squares = 0
+    p1.each_with_index do |p1_coord,index|
+      sum_of_squares += (p1_coord - p2[index]) ** 2
+    end
+    return Math.sqrt( sum_of_squares )
+  end
+
+  def move
+    @player = @window.getWorld.getEntityManager.getPlayer
+    @p1 = [@x, @y]
+    @p2 = [@player.getX, @player.getY]
+    @distance = euclidean_distance @p1, @p2
+      if !entityCollided @xmove, 0
+        if @distance < 150 && @distance > 40
+           puts @distance
+           chaseX
+        else
+        moveX
+      end
+      end
+      if !entityCollided 0, @ymove
+        if @distance < 150 && @distance > 40
+           puts @distance
+           chaseY
+        else
+        moveY
+      end
+      end
+    end
+
 
   def getY
     return @y
