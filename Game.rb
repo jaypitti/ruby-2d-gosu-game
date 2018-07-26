@@ -9,7 +9,6 @@ require './Camera.rb'
 require './GameHandler'
 require './State'
 require './GameState'
-require 'gosu'
 require 'pry'
 
 class Client
