@@ -32,7 +32,7 @@ bundle
 From the project's root directory run the following to start the game:
 
 ```bash
-ruby Game.rb `User Name`
+ruby Game.rb
 ```
 
 ### Start the server
@@ -47,7 +47,7 @@ ruby GameServer.rb
 Then, run the following in the second tab to start the game.
 
 ```bash
-ruby Game.rb `User` `IP` `Port`
+ruby Game.rb
 ```
 
 ## Built With
