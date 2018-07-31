@@ -185,7 +185,7 @@ class Game < Gosu::Window
 end
 end
 
-name = ARGV[0]
+#name = ARGV[0]
 server = ARGV[1]
 port = ARGV[2] || 1234
 #game = Game.new name, server, port
