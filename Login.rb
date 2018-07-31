@@ -68,9 +68,8 @@ class TextField < Gosu::TextInput
   # Hit-test for selecting a text field with the mouse.
   def under_mouse?
     @window.mouse_x > x - PADDING and @window.mouse_x < x + WIDTH + PADDING and
-      @window.mouse_y > y - PADDING and @window.mouse_y < y + height + PADDING
-  end
-  
+    @window.mouse_y > y - PADDING and @window.mouse_y < y + height + PADDING
+  end  
   # Tries to move the caret to the position specifies by mouse_x
   def move_caret_to_mouse
     # Test character by character
@@ -85,7 +84,7 @@ class TextField < Gosu::TextInput
   end
 end
 
-class TextInputDemo < (Example rescue Gosu::Window)
+class Login < (Example rescue Gosu::Window)
   def initialize
     super 640, 480
     self.caption = "LOGIN"
@@ -111,8 +110,9 @@ class TextInputDemo < (Example rescue Gosu::Window)
   def draw
     @text.draw 50, 50, 0
     @text_fields.each { |tf| tf.draw(0) }
-    @test = Gosu::Image.from_text @text_fields[1].text, 20, :width => 540
-    @test.draw 300, 50, 0
+    @test = Gosu::Image.from_text "LOGIN", 30, :width => 125
+    @login_button = Gosu.draw_rect 450, 300, 125, 50, 0xcc_C0C0C0, 0
+    @test.draw 470, 310, 1
   end
   
   def button_down(id)
@@ -129,9 +129,18 @@ class TextInputDemo < (Example rescue Gosu::Window)
         close
       end
     elsif id == Gosu::MS_LEFT
+      
+      button = ""
       # Mouse click: Select text field based on mouse position.
       self.text_input = @text_fields.find { |tf| tf.under_mouse? }
       # Also move caret to clicked position
+      
+      if  self.mouse_x > 450 and self.mouse_x < 450 + 125 and
+          self.mouse_y > 310 and self.mouse_y < 310 + 50 
+          @game = Game.new @text_fields[0].text, "", "1234"
+          @game.show
+          close
+      end
       self.text_input.move_caret_to_mouse unless self.text_input.nil?
     elsif id == Gosu::KB_RETURN
       
@@ -150,4 +159,4 @@ class TextInputDemo < (Example rescue Gosu::Window)
   end
 end
 
-TextInputDemo.new.show if __FILE__ == $0
+Login.new.show if __FILE__ == $0
