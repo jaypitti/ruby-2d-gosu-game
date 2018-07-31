@@ -17,9 +17,9 @@ class Monster < Creature
     @xmove, @ymove = 0,0
     # image
     @assets = Assets.new
-    @animation_down = Animation.new(100, @assets.player_down)
-    @animation_up = Animation.new(100, @assets.player_up)
-    @animation_x = Animation.new(100, @assets.player_x)
+    @animation_down = Animation.new(100, @assets.zom_down)
+    @animation_up = Animation.new(100, @assets.zom_up)
+    @animation_x = Animation.new(100, @assets.zom_x)
 
     @width = @height = 64
     # Only defined twice so others would know what @s is
@@ -222,7 +222,7 @@ class Monster < Creature
     # @move and @idle are the same size,
     # so we can use the same frame calc.
     # f = @frame % @animated.size
-    image = @assets.player
+    image = @assets.zombie
     if @moving
       if @direction == :left
         @animation_x.getFrame.draw @x - @window.getGameCamera.getXoffset, @y - @window.getGameCamera.getYoffset, 1, 2, 2

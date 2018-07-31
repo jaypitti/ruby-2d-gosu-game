@@ -1,7 +1,7 @@
 require_relative './SpriteSheet.rb'
 
 class Assets
-  attr_accessor :player, :player_down, :player_up, :player_x, :plant, :stone, :grass, :tiles, :spritesheet
+  attr_accessor :player, :zombie, :player_down, :player_up, :player_x, :zom_up, :zom_down, :zom_x, :plant, :stone, :grass, :tiles, :spritesheet
   @@tiles
   class << self
     def grass
@@ -16,6 +16,9 @@ class Assets
     def player
       return SpriteSheet.new.playerCrop 32, 32 * 2 + 8, 32, 32 + 3
     end
+    def zombie
+      return Spritesheet.new.enemycut @w, 0, @w, @h
+    end
     def tiles(x)
        return @@tiles[x]
     end
@@ -29,6 +32,7 @@ class Assets
     @player_up = []
     @player_x = []
     @player = @spritesheet.playerCrop @w, 32 * 2 + 8, @w, @h + 3
+    @zombie = @spritesheet.enemycut @w, @h, @w, @h
 
     @player_down[0] = @spritesheet.playerCrop 0, 32 * 2 + 8, @w, @h + 3
     @player_down[1] = @spritesheet.playerCrop @w, 32 * 2 + 8, @w, @h + 3
@@ -44,6 +48,25 @@ class Assets
     @player_x[1] = @spritesheet.playerCrop @w, 32 * 3 + 12, @w, @h
     @player_x[2] = @spritesheet.playerCrop @w * 2, 32 * 3 + 12, @w, @h
     @player_x[3] = @spritesheet.playerCrop @w, 32 * 3 + 12, @w, @h
+
+    @zom_up = [];
+    @zom_down= [];
+    @zom_x= [];
+
+    @zom_up[0] = @spritesheet.enemycut 0, @h * 7, @w, @h
+    @zom_up[1] = @spritesheet.enemycut @w, @h * 7, @w, @h
+    @zom_up[2] = @spritesheet.enemycut @w * 2, @h * 7, @w, @h
+    @zom_up[3] = @spritesheet.enemycut 0, @h * 7, @w, @h
+
+    @zom_down[0] = @spritesheet.enemycut 0,   @h, @w, @h
+    @zom_down[1] = @spritesheet.enemycut @w,  @h, @w, @h
+    @zom_down[2] = @spritesheet.enemycut @w * 2, @h, @w, @h
+    @zom_down[0] = @spritesheet.enemycut 0,   @h, @w, @h
+
+    @zom_x[0] = @spritesheet.enemycut 0, @h * 3, @w, @h
+    @zom_x[1] = @spritesheet.enemycut @w, @h * 3, @w, @h
+    @zom_x[2] = @spritesheet.enemycut @w * 2, @h * 3, @w, @h
+    @zom_x[3] = @spritesheet.enemycut 0, @h * 3, @w, @h
 
     @stone = @spritesheet.tileCrop @w * 3, @h, @w, @h
     @grass = @spritesheet.tileCrop @w * 1, @h * rand(1..2), @w, @h
