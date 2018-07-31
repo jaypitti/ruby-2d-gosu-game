@@ -13,7 +13,7 @@ require 'pry'
 
 class Client
   include Celluloid::IO
-
+#comment
   def initialize(server, port)
     begin
       @socket = TCPSocket.new(server, port)
