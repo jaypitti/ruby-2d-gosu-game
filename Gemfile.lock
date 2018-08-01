@@ -42,7 +42,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+<<<<<<< HEAD
   bundler (~> 1.16.3)
+=======
+>>>>>>> d04802fb69dc5dbb7b53f3b4660bb624d84a039e
   celluloid-io
   faker
   gosu
