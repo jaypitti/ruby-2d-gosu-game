@@ -1,4 +1,4 @@
-require_relative './SpriteSheet.rb'
+load './SpriteSheet.rb'
 
 class Assets
   attr_accessor :player, :zombie, :player_down, :player_up, :player_x, :zom_up, :zom_down, :zom_x, :plant, :stone, :grass, :tiles, :spritesheet

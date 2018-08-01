@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+gem 'faker'
+gem 'gosu', '~> 0.9.2'
+gem 'celluloid-io'
+gem 'pry'
