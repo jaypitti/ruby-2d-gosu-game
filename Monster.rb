@@ -191,23 +191,23 @@ class Monster < Creature
         @xmove = 0
         @ymove = 0
       end
-      if m == 0..1
+      if (0..1).include?(m)
         @direction = :left
         @moving = true
         @xmove = -@speed
-      elsif m == 2..3
+      elsif (2..3).include?(m)
         @direction = :right
         @moving = true
         @xmove = @speed
-      elsif m == 4..5
+      elsif (4..5).include?(m)
         @direction = :up
         @moving = true
         @ymove = -@speed
-      elsif move == 6..7
+      elsif (6..7).include?(m)
         @direction = :down
         @moving = true
         @ymove = @speed
-      elsif move == 8..11
+      elsif (8..11).include?(m)
         @moving = false
         @xmove = 0
         @ymove = 0
