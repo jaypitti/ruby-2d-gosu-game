@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)https://stackoverflow.com/questions/ask -->
+<html itemscope="" itemtype="http://schema.org/QAPage" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <title>TCPServer in ruby, Code is stuck - Stack Overflow</title>
+        <link rel="shortcut icon" href="https://cdn.sstatic.net/Sites/stackoverflow/img/favicon.ico?v=4f32ecc8f43d">
+        <link rel="apple-touch-icon image_src" href="https://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+        <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="https://stackoverflow.com/opensearch.xml">
+
+
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://stackoverflow.com/questions/ask">
+        <meta property="og:image" itemprop="image primaryImageOfPage" content="https://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon@2.png?v=73d79a89bded">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:domain" content="stackoverflow.com">
+        <meta name="twitter:title" property="og:title" itemprop="title name" content="Ask a Question">
+        <meta name="twitter:description" property="og:description" itemprop="description" content="Stack Overflow | The World’s Largest Online Community for Developers">
+        <script src="./TCPServer in ruby, Code is stuck - Stack Overflow_files/rules-p-c1rF4kxgLUzNc.js" async=""></script><script async="" src="./TCPServer in ruby, Code is stuck - Stack Overflow_files/quant.js"></script><script async="" src="./TCPServer in ruby, Code is stuck - Stack Overflow_files/beacon.js"></script><script async="" src="./TCPServer in ruby, Code is stuck - Stack Overflow_files/analytics.js"></script><script src="./TCPServer in ruby, Code is stuck - Stack Overflow_files/jquery.min.js"></script>
+        <script src="./TCPServer in ruby, Code is stuck - Stack Overflow_files/stub.en.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="./TCPServer in ruby, Code is stuck - Stack Overflow_files/stacks.css">
+        <link rel="stylesheet" type="text/css" href="./TCPServer in ruby, Code is stuck - Stack Overflow_files/primary.css">
+            <link rel="stylesheet" type="text/css" href="./TCPServer in ruby, Code is stuck - Stack Overflow_files/secondary.css">
+    
+    <script>
+        StackExchange.ready(
+            function () {
+
+                function showErrors() {
+                };
+
+                StackExchange.using("postValidation", function () {
+                    StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 1, 'question', false, null, false);
+                });
+                
+                var suggestionTarget = $("#question-suggestions");
+                var titleSearchOptions = {
+                    siteName: document.title.substr(document.title.indexOf(' - ') + 3),
+                    onResults: function ($links) {
+                                   StackExchange.using('gps', function() {
+                                       StackExchange.gps.track('question_ask.suggestions_show', { });
+                                       $links.addClass('js-gps-track').data('gps-track', 'question_ask.suggestion_click');
+                                       StackExchange.gps.bindTrackClicks(suggestionTarget);
+                                   });
+                               }
+                };
+                StackExchange.question.initTitleSearch($('#title'), suggestionTarget, titleSearchOptions);
+
+
+            }
+        );
+    </script>
+
+        <script>
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("question_ask.visit", { 'inbox_subscription': 2 });
+                var pending = [];
+                var send = StackExchange.helpers.DelayedReaction(function () {
+                    StackExchange.gps.sendPending();
+                }, 3000);
+                var alreadySent = { "title_focus": 1 };
+                $("#title,#wmd-input,#tagnames").on("focus blur", function (evt) {
+                    var what = { title: "title", "wmd-input": "body", "tagnames": "tags" }[this.id] + "_" + evt.type;
+                    if (alreadySent[what])
+                        return;
+                    StackExchange.gps.track("question.action", { action_type: what }, true);
+                    alreadySent[what] = 1;
+                    send.trigger();
+                });
+            });
+        </script>
+
+        
+        
+        
+        
+        
+        
+                <script>
+        StackExchange.init({"locale":"en","serverTime":1524959976,"routeName":"Questions/Ask","stackAuthUrl":"https://stackauth.com","networkMetaHostname":"meta.stackexchange.com","site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"enableNewTagCreationWarning":true,"insertSpaceAfterNameTabCompletion":false,"id":1,"childUrl":"https://meta.stackoverflow.com","enableSocialMediaInSharePopup":true,"protocol":"https"},"user":{"fkey":"201fe32a92846d5d4760fca7aa0d895aeeb702cb77672cd2967b8fe1664227ae","tid":"e7f81bb8-a79e-c587-0476-e6df8a7115cc","rep":6,"isRegistered":true,"userType":3,"userId":9633658,"accountId":13347430,"gravatar":"<div class=\"gravatar-wrapper-32\"><img src=\"https://graph.facebook.com/2109173902433349/picture?type=large\" alt=\"\" width=\"32\" height=\"32\"></div>","profileUrl":"https://stackoverflow.com/users/9633658/jandrei-pitti","canSeeDeletedPosts":false,"ab":{"search_improvements":{"v":"questions_index","g":2}}},"events":{"postType":{"question":1},"postEditionSection":{"title":1,"body":2,"tags":3}},"story":{"minCompleteBodyLength":75,"likedTagsMaxLength":300,"dislikedTagsMaxLength":300},"jobPreferences":{"maxNumDeveloperRoles":2,"maxNumIndustries":4}}, {"site":{"allowImageUploads":true,"commentHighlightingWithCSS":true,"enableUserHovercards":true,"styleCode":true,"enableImgurHttps":true,"forceHttpsImages":true},"userMessaging":{},"comments":{},"userProfile":{"openGraphAPIKey":"58740831ad23540e00c58987"},"tags":{},"accounts":{"currentPasswordRequiredForChangingStackIdPassword":true},"flags":{"allowRetractingFlags":true},"snippets":{"snippetsEnabled":true,"renderDomain":"stacksnippets.net"},"paths":{},"markdown":{"asteriskIntraWordEmphasis":true},"monitoring":{"clientTimingsAbsoluteTimeout":30000,"clientTimingsDebounceTimeout":1000},"slack":{"sidebarAdDismissCookie":"slack-sidebar-ad"}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"d25b8b2afc5c","js/moderator.en.js":"3bb5a4abfc3a","js/full-anon.en.js":"a8aed0093511","js/full.en.js":"ea8b4e3b9248","js/wmd.en.js":"981693b21795","js/third-party/jquery.autocomplete.min.js":"bdb258e949a8","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"8f0a128ba37e","js/help.en.js":"292011d3c2af","js/tageditor.en.js":"52e99999369a","js/tageditornew.en.js":"b8fc86dd962f","js/inline-tag-editing.en.js":"e7aa31e8eba1","js/revisions.en.js":"8f22ba768cac","js/review.en.js":"e4e7faabcaa1","js/tagsuggestions.en.js":"ddb0e41afe26","js/post-validation.en.js":"6804ee11adab","js/explore-qlist.en.js":"ad4c7afc1df4","js/events.en.js":"28c1cfcc9d41","js/keyboard-shortcuts.en.js":"992bda5e0afb","js/external-editor.en.js":"43fc5e42a913","js/adops.en.js":"22a9bd59b1e9","js/external-editor.en.js":"43fc5e42a913","js/snippet-javascript.en.js":"2ca74b6a088a","js/snippet-javascript-codemirror.en.js":"7ade9a77ef53"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    <noscript id="noscript-css">&lt;style&gt;body,.top-bar{margin-top:1.9em}&lt;/style&gt;</noscript>
+    <script async="" src="./TCPServer in ruby, Code is stuck - Stack Overflow_files/full.en.js"></script><script async="" src="./TCPServer in ruby, Code is stuck - Stack Overflow_files/tageditornew.en.js"></script><script async="" src="./TCPServer in ruby, Code is stuck - Stack Overflow_files/tagsuggestions.en.js"></script><script async="" src="./TCPServer in ruby, Code is stuck - Stack Overflow_files/wmd.en.js"></script><script async="" src="./TCPServer in ruby, Code is stuck - Stack Overflow_files/external-editor.en.js"></script><script async="" src="./TCPServer in ruby, Code is stuck - Stack Overflow_files/snippet-javascript.en.js"></script><style type="text/css"> .wmd-snippet-button span { background-position: 0 0; } .wmd-snippet-button:hover span { background-position: 0 -40px; }</style></head>
+        <body class="ask-page new-topbar">
+    <div id="notify-container"></div>
+    <div id="custom-header"></div>
+
+
+
+
+<header class="top-bar js-top-bar _fixed _scrolling">
+    <div class="-container">
+        <div class="-main">
+                                <a href="https://stackoverflow.com/" class="-logo js-gps-track" data-gps-track="top_nav.click({is_current:false, location:3, destination:8})">
+                        <span class="-img _glyph">Stack Overflow</span>
+                    </a>
+
+
+                <nav class="navigation" role="navigation" aria-label="site navigation">
+                    <ol class="-list">
+        <li class="-item">
+            <a id="nav-questions" href="https://stackoverflow.com/questions" class="-link js-gps-track" data-gps-track="top_nav.click({is_current:false, location:3, destination:1})">Questions</a>
+        </li>
+        <li class="-item">
+            <a id="nav-jobs" href="https://stackoverflow.com/jobs?med=site-ui&amp;ref=jobs-tab" class="-link js-gps-track" data-gps-track="top_nav.click({is_current:false, location:3, destination:6})">Developer Jobs</a>
+        </li>
+        <li class="-item">
+            <a id="nav-tags" href="https://stackoverflow.com/tags" class="-link js-gps-track" data-gps-track="top_nav.click({is_current:false, location:3, destination:2})">Tags</a>
+        </li>
+        <li class="-item">
+            <a id="nav-users" href="https://stackoverflow.com/users" class="-link js-gps-track" data-gps-track="top_nav.click({is_current:false, location:3, destination:3})">Users</a>
+        </li>
+                    </ol>
+                </nav>
+
+        </div>
+
+            <form id="search" action="https://stackoverflow.com/search" method="get" class="searchbar js-searchbar " autocomplete="off" role="search">
+                    <div class="ps-relative">
+                        <input name="q" type="text" placeholder="Search…" value="" autocomplete="off" maxlength="240" class="f-input js-search-field">
+                        <button type="submit" aria-label="Search..." class="btn-topbar-primary js-search-submit"><svg aria-hidden="true" class="svg-icon iconSearch" width="18" height="18" viewBox="0 0 18 18"><path d="M12.86 11.32L18 16.5 16.5 18l-5.18-5.14v-.35a7 7 0 1 1 1.19-1.19h.35zM7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10z"></path></svg></button>
+                    </div>
+            </form>
+
+        
+
+
+
+
+<ol class="-secondary">
+        <li class="-item searchbar-trigger js-searchbar-trigger"><a href="https://stackoverflow.com/questions/ask#" class="-link"><svg aria-hidden="true" class="svg-icon iconSearch" width="18" height="18" viewBox="0 0 18 18"><path d="M12.86 11.32L18 16.5 16.5 18l-5.18-5.14v-.35a7 7 0 1 1 1.19-1.19h.35zM7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10z"></path></svg></a></li>
+                <li class="-item">
+                <a href="https://stackoverflow.com/users/9633658/jandrei-pitti" class="my-profile js-gps-track" data-gps-track="profile_summary.click()">
+                <div class="gravatar-wrapper-24" title="Jandrei Pitti"><img src="./TCPServer in ruby, Code is stuck - Stack Overflow_files/picture" alt="" width="24" height="24" class="-avatar js-avatar-me"></div>
+                    <div class="-rep js-header-rep" title="your reputation: 6">6</div>
+                        <div class="-badges">
+<span title="2 bronze badges"><span class="badge3">●</span><span class="badgecount">2</span></span>                        </div>
+                </a>
+            </li>
+        <li class="-item">
+        <a href="https://stackexchange.com/users/13347430?tab=inbox" class="-link js-inbox-button" title="Recent inbox messages">
+            <svg aria-hidden="true" class="svg-icon iconInbox" width="20" height="18" viewBox="0 0 20 18"><path d="M15.19 1H4.63c-.85 0-1.6.54-1.85 1.35L0 10.79V15c0 1.1.9 2 2 2h16a2 2 0 0 0 2-2v-4.21l-2.87-8.44A2 2 0 0 0 15.19 1zm-.28 10l-2 2h-6l-2-2H1.96L4.4 3.68A1 1 0 0 1 5.35 3h9.12a1 1 0 0 1 .95.68L17.86 11h-2.95z"></path></svg>
+            <span class="indicator-badge js-unread-count _important" style="display: none;"></span>
+        </a>
+    </li>
+    <li class="-item">
+        <a href="https://stackexchange.com/users/13347430?tab=reputation" class="-link js-achievements-button" title="Recent achievements: reputation, badges, and privileges earned" data-unread-class="_highlighted-positive">
+            <svg aria-hidden="true" class="svg-icon iconAchievements" width="18" height="18" viewBox="0 0 18 18"><path d="M15 2V1H3v1H0v4c0 1.6 1.4 3 3 3v1c.4 1.5 3 2.6 5 3v2H5s-1 1.5-1 2h10c0-.4-1-2-1-2h-3v-2c2-.4 4.6-1.5 5-3V9c1.6-.2 3-1.4 3-3V2h-3zM3 7c-.5 0-1-.5-1-1V4h1v3zm8.4 2.5L9 8 6.6 9.4l1-2.7L5 5h3l1-2.7L10 5h2.8l-2.3 1.8 1 2.7h-.1zM16 6c0 .5-.5 1-1 1V4h1v2z"></path></svg>
+            <span class="indicator-badge js-unread-count _positive" style="display: none;"></span>
+        </a>
+    </li>
+
+    <li class="-item"><a href="https://stackoverflow.com/questions/ask#" class="-link js-help-button" title="Help Center and other resources">
+        <svg aria-hidden="true" class="svg-icon iconHelp" width="18" height="18" viewBox="0 0 18 18"><path d="M9 1a8 8 0 1 0 0 16A8 8 0 0 0 9 1zm.81 12.13c-.02.71-.55 1.15-1.24 1.13-.66-.02-1.17-.49-1.15-1.2.02-.72.56-1.18 1.22-1.16.7.03 1.2.51 1.17 1.23zM11.77 8a5.8 5.8 0 0 1-1.02.91l-.53.37c-.26.2-.42.43-.5.69a4 4 0 0 0-.09.75c0 .05-.03.16-.18.16H7.88c-.16 0-.18-.1-.18-.15.03-.66.12-1.21.4-1.66a5.29 5.29 0 0 1 1.43-1.22c.16-.12.28-.25.38-.39a1.34 1.34 0 0 0 .02-1.71c-.24-.31-.51-.46-1.03-.46-.51 0-.8.26-1.02.6-.21.33-.18.73-.18 1.1H5.75c0-1.38.35-2.25 1.1-2.76.52-.35 1.17-.5 1.93-.5 1 0 1.79.18 2.49.71.64.5.98 1.18.98 2.12 0 .57-.2 1.05-.48 1.44z"></path></svg>
+    </a></li>
+
+    <li class="-item">
+        <a href="https://stackexchange.com/" class="-link js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 173 Stack Exchange sites">
+            <svg aria-hidden="true" class="svg-icon iconStackExchange" width="18" height="18" viewBox="0 0 18 18"><path d="M1 13c0 1.1.9 2 2 2h8v3l3-3h1a2 2 0 0 0 2-2v-2H1v2zM15 1H3a2 2 0 0 0-2 2v2h16V3a2 2 0 0 0-2-2zM1 6h16v4H1V6z"></path></svg>
+        </a>
+    </li>
+
+
+    <li class="-dialog-container js-topbar-dialog-corral">
+
+
+    <div class="topbar-dialog siteSwitcher-dialog dno">
+        <div class="header">
+            <h3><a href="https://stackoverflow.com/">current community</a>
+            </h3>
+        </div>
+        <div class="modal-content current-site-container">
+            <ul class="current-site">
+                    <li class="grid">
+                            <div class="fl1">
+            <a href="https://stackoverflow.com/" class="current-site-link site-link js-gps-track grid gs8 gsx" data-id="1" data-gps-track="site_switcher.click({ item_type:3 })">
+        <div class="favicon favicon-stackoverflow site-icon grid--cell" title="Stack Overflow"></div>
+        <span class="grid--cell fl1">
+            Stack Overflow
+        </span>
+    </a>
+
+    </div>
+    <div class="related-links">
+            <a href="https://stackoverflow.com/help" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:14 })">help</a>
+                    <a href="https://chat.stackoverflow.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="https://stackoverflow.com/users/logout" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:8 })">log out</a>
+    </div>
+
+                    </li>
+                    <li class="related-site grid">
+                            <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                            <a href="https://meta.stackoverflow.com/" class="site-link js-gps-track grid gs8 gsx" data-id="552" data-gps-track="site.switch({ target_site:552, item_type:3 }),site_switcher.click({ item_type:4 })">
+        <div class="favicon favicon-stackoverflowmeta site-icon grid--cell" title="Meta Stack Overflow"></div>
+        <span class="grid--cell fl1">
+            Meta Stack Overflow
+        </span>
+    </a>
+
+                    </li>
+            </ul>
+        </div>
+
+        <div class="header" id="your-communities-header">
+            <h3>
+                    <a href="https://stackexchange.com/users/13347430/?tab=accounts">your communities</a>
+            </h3>
+
+                <a href="https://stackoverflow.com/questions/ask#" id="edit-pinned-sites">edit</a>
+                <a href="https://stackoverflow.com/questions/ask#" id="cancel-pinned-sites" style="display: none;">cancel</a>
+        </div>
+        <div class="modal-content" id="your-communities-section">
+
+                <ul class="my-sites">
+                        <li>
+                                <a href="https://stackoverflow.com/" class="site-link js-gps-track grid gs8 gsx" data-id="1" data-gps-track="site.switch({ target_site:1, item_type:3 }),site_switcher.click({ item_type:1 })">
+        <div class="favicon favicon-stackoverflow site-icon grid--cell" title="Stack Overflow"></div>
+        <span class="grid--cell fl1">
+            Stack Overflow
+        </span>
+            <span class="rep-score grid--cell">6</span>
+    </a>
+
+                        </li>
+                </ul>
+                    <div class="pinned-site-editor-container" style="display: none;">
+                        <input id="js-site-search-txt" type="text" class="site-filter-input" value="" placeholder="Add a Stack Exchange community">
+                        <input type="submit" id="pin-site-btn" value="Add" disabled="disabled">
+                        <ul class="js-found-sites found-sites"></ul>
+                        <ul class="pinned-site-list sortable" data-custom-list="False">
+                        </ul>
+                        <input type="submit" value="Save" id="save-pinned-sites-btn" disabled="disabled">
+                        <a href="https://stackoverflow.com/questions/ask#" id="reset-pinned-sites">reset to default list</a>
+                    </div>
+        </div>
+
+        <div class="header">
+            <h3><a href="https://stackexchange.com/sites">more stack exchange communities</a>
+            </h3>
+            <a href="https://stackoverflow.blog/" class="fr">company blog</a>
+        </div>
+        <div class="modal-content">
+                <div class="child-content"></div>
+        </div>        
+    </div>
+            <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="https://stackoverflow.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="https://stackoverflow.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                        <li>
+                            <a href="https://meta.stackoverflow.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                                Meta
+                                <span class="item-summary">
+                                    Discuss the workings and policies of this site
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://stackoverflow.com/company/about" class="js-gps-track" data-gps-track="help_popup.click({ item_type:6 })">
+                                About Us
+                                <span class="item-summary">
+                                    Learn more about Stack Overflow the company
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.stackoverflowbusiness.com/?ref=topbar_help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:7 })">
+                                Business
+                                <span class="item-summary">
+                                    Learn more about hiring developers or posting ads with us
+                                </span>
+                            </a>
+                        </li>
+            </ul>
+        </div>
+    </div>
+    </li>
+</ol>
+
+    </div>
+</header>
+
+    <script>
+        StackExchange.ready(function() { StackExchange.topbar.init(); });
+        StackExchange.scrollPadding.setPaddingTop(60, 10);     </script>
+
+
+    
+
+
+    <div class="container">
+                        
+        <div id="content" class="snippet-hidden">
+
+
+            
+
+
+
+
+<div id="mainbar" class="ask-mainbar">
+    
+    <form id="post-form" class="post-form" action="https://stackoverflow.com/questions/ask/submit" method="post">
+        <input type="hidden" name="qualityBanWarningShown" value="False">
+        <input type="hidden" name="priorAttemptCount" value="0"> 
+        <input type="hidden" name="warntags">
+                <div id="question-form">
+            <div style="position: relative;"> 
+                <div class="form-item ask-title">
+
+                        <table class="ask-title-table">
+                            <tbody><tr>
+                                <td class="ask-title-cell-key">
+                                    <label for="title">Title</label>
+                                </td>
+                                <td class="ask-title-cell-value">
+                                        <input id="title" name="title" type="text" maxlength="300" tabindex="100" placeholder="What&#39;s your programming question? Be specific." class="js-ask-title" data-min-length="15" data-max-length="150" autocomplete="off">
+
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    <div id="question-suggestions"><label>Questions that may already have your answer</label>
+        <div class="title-search-container">
+<div class="answer-summary">
+    <a href="https://stackoverflow.com/q/1284089/9633658" title="5 votes">
+        <div class="answer-votes default">5</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/1284089/in-tcpserver-ruby-how-can-i-get-the-ip-mac-from-the-client" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">In TCPServer (Ruby) how can i get the IP/MAC from the client?</a>
+            <span title="2 answers">2</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/25570656/9633658" title="-1 votes">
+        <div class="answer-votes default">-1</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/25570656/use-terminal-command-in-ruby-code" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">Use terminal command in ruby code? [duplicate]</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/27272463/9633658" title="8 votes">
+        <div class="answer-votes default">8</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/27272463/how-to-check-ruby-syntax-error-in-ruby-code" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">How to check ruby syntax error in ruby code</a>
+            <span title="3 answers">3</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/39423279/9633658" title="1 vote">
+        <div class="answer-votes default">1</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/39423279/how-to-use-tcpserver-in-ruby-on-rails" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">How to use TCPServer in Ruby on Rails?</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/33314920/9633658" title="-2 votes">
+        <div class="answer-votes default">-2</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/33314920/what-is-operator-meaning-in-ruby-code" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">What is “=~” operator meaning in Ruby code</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/17027585/9633658" title="0 votes">
+        <div class="answer-votes default">0</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/17027585/how-to-call-cs-fread-function-in-ruby-code" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">How to call C's fread() function in Ruby code?</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/16111718/9633658" title="0 votes">
+        <div class="answer-votes default">0</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/16111718/parser-in-ruby-that-feels-like-typical-ruby-code" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">Parser in Ruby that feels like typical Ruby code [closed]</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/8347636/9633658" title="13 votes, with an accepted answer">
+        <div class="answer-votes answered-accepted default">13</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/8347636/drop-in-single-breakpoint-in-ruby-code" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">Drop in Single Breakpoint in Ruby Code</a>
+            <span title="2 answers">2</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/16511320/9633658" title="3 votes, with an accepted answer">
+        <div class="answer-votes answered-accepted default">3</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/16511320/using-whitespace-in-ruby-code-the-ternary-operator" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">Using whitespace in Ruby code (the ternary operator)</a>
+            <span title="3 answers">3</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/22065357/9633658" title="0 votes, with an accepted answer">
+        <div class="answer-votes answered-accepted default">0</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/22065357/download-file-in-ruby-code" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">Download file in Ruby code</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/24196213/9633658" title="0 votes">
+        <div class="answer-votes default">0</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/24196213/ruby-https-get-call-is-stuck" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">Ruby https get call is stuck</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/7330510/9633658" title="1 vote, with an accepted answer">
+        <div class="answer-votes answered-accepted default">1</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/7330510/help-in-ruby-code" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">Help in ruby code</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/35306463/9633658" title="-1 votes, with an accepted answer">
+        <div class="answer-votes answered-accepted default">-1</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/35306463/is-indentation-obligatory-in-ruby" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">Is indentation obligatory in Ruby? [duplicate]</a>
+            <span title="3 answers">3</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/18462243/9633658" title="3 votes, with an accepted answer">
+        <div class="answer-votes answered-accepted default">3</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/18462243/aes-cbc-pkcs5padding-encrypt-in-java-decrypt-in-ruby" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">AES/CBC/PKCS5Padding encrypt in java decrypt in ruby</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/41436140/9633658" title="0 votes, with an accepted answer">
+        <div class="answer-votes answered-accepted default">0</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/41436140/invoke-namespaced-rake-task-in-ruby-code" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">Invoke namespaced rake task in ruby code</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/33372097/9633658" title="0 votes, with an accepted answer">
+        <div class="answer-votes answered-accepted default">0</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/33372097/a-crux-about-nil-test-in-ruby-code" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">a crux about nil test in ruby code</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/3945711/9633658" title="-1 votes">
+        <div class="answer-votes default">-1</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/3945711/what-is-in-ruby" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">what is ||= in ruby? [duplicate]</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/9500397/9633658" title="0 votes, with an accepted answer">
+        <div class="answer-votes answered-accepted default">0</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/9500397/what-is-the-regular-expression-to-find-name-from-abc-name-efg-in-ruby-code" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">What is the regular expression to find “$name” from “abc $name,efg” in Ruby code?</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/29033500/9633658" title="-1 votes, with an accepted answer">
+        <div class="answer-votes answered-accepted default">-1</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/29033500/how-to-use-find-exec-and-cp-commands-together-in-ruby-code" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">How to use find ,-exec and cp commands together in ruby code?</a>
+            <span title="2 answers">2</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/37852110/9633658" title="0 votes">
+        <div class="answer-votes default">0</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/37852110/cant-execute-stored-procedure-in-ruby" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">can't execute stored procedure in ruby</a>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/14879631/9633658" title="2 votes, with an accepted answer">
+        <div class="answer-votes answered-accepted default">2</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/14879631/file-comparison-in-ruby-program" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">File Comparison in Ruby Program</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/8520807/9633658" title="0 votes, with an accepted answer">
+        <div class="answer-votes answered-accepted default">0</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/8520807/how-to-write-this-https-post-request-in-ruby" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">How to write this HTTPS POST request in ruby?</a>
+            <span title="2 answers">2</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/2738249/9633658" title="0 votes">
+        <div class="answer-votes default">0</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/2738249/take-most-significant-8-bytes-of-the-md5-hash-of-a-string-as-a-long-in-ruby" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">Take most significant 8 bytes of the MD5 hash of a string as a long (in Ruby)</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/39894529/9633658" title="1 vote, with an accepted answer">
+        <div class="answer-votes answered-accepted default">1</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/39894529/ios-symbolicatecrash-is-stuck" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">iOS: symbolicatecrash is stuck</a>
+            <span title="1 answer">1</span>
+    </div>
+</div><div class="answer-summary">
+    <a href="https://stackoverflow.com/q/25791284/9633658" title="1 vote">
+        <div class="answer-votes default">1</div>
+    </a>
+    <div class="answer-link " style="width:90%">
+        <a href="https://stackoverflow.com/questions/25791284/using-vspe-tcpclient-tcpserver-in-c-sharp" class="question-hyperlink js-gps-track" dir="ltr" target="_blank">Using VSPE tcpclient/tcpserver in C#</a>
+    </div>
+</div>        </div></div>
+                </div>
+            <div class="message message-warning message-dismissable" style="max-width: 365px; min-width: 365px; position: absolute; top: 32px; left: 669px; display: block;"><div class="message-inner message-tip message-tip-left-top"><div title="close this message (or hit Esc)" class="message-close">×</div><div class="message-text" style="padding-right: 48px;">Questions with similar titles have frequently been downvoted and/or closed. Consider using a title that more accurately describes your question.</div></div></div></div>
+
+
+
+
+
+            
+
+            <script>
+            StackExchange.ifUsing("editor", function () {
+                StackExchange.using("externalEditor", function () {
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.init();
+                    });
+                });
+            }, "code-snippets");
+        </script>
+    
+
+<script>
+    StackExchange.ready(function() {
+        StackExchange.using("tagEditor", function () { StackExchange.tagEditor.ready.done(initFadingHelpText); });
+        var channelOptions = {
+            tags: "".split(" "),
+            id: "1"
+        };
+        initTagRenderer("".split(" "), "".split(" "), channelOptions);
+       
+        StackExchange.using("externalEditor", function() {
+                // Have to fire editor after snippets, if snippets enabled
+                if (StackExchange.settings.snippets.snippetsEnabled) {
+                    StackExchange.using("snippets", function() {
+                        createEditor();
+                    });
+                }
+                else {
+                    createEditor();
+                }
+            });
+
+            function createEditor() {
+                StackExchange.prepareEditor({
+                    heartbeatType: 'ask',
+                convertImagesToLinks: true,
+                showLowRepImageUploadWarning: true,
+                reputationToPostImages: 10,
+                bindNavPrevention: true,
+                postfix: "",
+                    onDemand: false,
+                    discardSelector: ".discard-question"
+                    ,immediatelyShowMarkdownHelp:true,userId:9633658
+                    });
+                
+
+        }
+    });
+</script>
+
+
+<div id="post-editor" class="post-editor js-post-editor">
+
+    <div style="position: relative;"> 
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li class="wmd-button" id="wmd-bold-button" title="Strong &lt;strong&gt; Ctrl+B"><span style="background-position: 0px 0px;"></span></li><li class="wmd-button" id="wmd-italic-button" title="Emphasis &lt;em&gt; Ctrl+I"><span style="background-position: -20px 0px;"></span></li><li class="wmd-spacer wmd-spacer1" id="wmd-spacer1"></li><li class="wmd-button" id="wmd-link-button" title="Hyperlink &lt;a&gt; Ctrl+L"><span style="background-position: -40px 0px;"></span></li><li class="wmd-button" id="wmd-quote-button" title="Blockquote &lt;blockquote&gt; Ctrl+Q" style="margin-top: 0px;"><span style="background-position: -60px 0px;"></span></li><li class="wmd-button" id="wmd-code-button" title="Code Sample &lt;pre&gt;&lt;code&gt; Ctrl+K" style="margin-top: 0px;"><span style="background-position: -80px 0px;"></span></li><li class="wmd-button" id="wmd-image-button" title="Image &lt;img&gt; Ctrl+G"><span style="background-position: -100px 0px;"></span></li><li class="wmd-button wmd-snippet-button" id="wmd-snippet-button" title="JavaScript/HTML/CSS snippet Ctrl-M"><span style="background-image: url(&quot;/content/Shared/balsamiq/wmd-mockup-button.png&quot;);"></span></li><li class="wmd-spacer wmd-spacer2" id="wmd-spacer2"></li><li class="wmd-button" id="wmd-olist-button" title="Numbered List &lt;ol&gt; Ctrl+O"><span style="background-position: -120px 0px;"></span></li><li class="wmd-button" id="wmd-ulist-button" title="Bulleted List &lt;ul&gt; Ctrl+U"><span style="background-position: -140px 0px;"></span></li><li class="wmd-button" id="wmd-heading-button" title="Heading &lt;h1&gt;/&lt;h2&gt; Ctrl+H"><span style="background-position: -160px 0px;"></span></li><li class="wmd-button" id="wmd-hr-button" title="Horizontal Rule &lt;hr&gt; Ctrl+R"><span style="background-position: -180px 0px;"></span></li><li class="wmd-spacer wmd-spacer3" id="wmd-spacer3"></li><li class="wmd-button" id="wmd-undo-button" title="Undo - Ctrl+Z"><span style="background-position: -200px 0px;"></span></li><li class="wmd-button" id="wmd-redo-button" title="Redo - Ctrl+Shift+Z"><span style="background-position: -220px -20px;"></span></li><li class="wmd-spacer wmd-spacer-max"></li><li class="wmd-button wmd-help-button active-help" id="wmd-help-button" title="Markdown Editing Help" style="right: 0px;"><span style="background-position: -240px 0px;"></span></li></ul></div><div id="mdhelp" class="mdhelp" style="">
+    <ul id="mdhelp-tabs" class="mdhelp-tabs">
+        <li data-tab="mdhelp-links" data-buttons="link">Links</li>
+        <li data-tab="mdhelp-images" data-buttons="image">Images</li>
+        <li data-tab="mdhelp-styles" data-buttons="bold,italic,heading">Styling/Headers</li>
+        <li data-tab="mdhelp-lists" data-buttons="olist,ulist">Lists</li>
+        <li data-tab="mdhelp-blockquotes" data-buttons="quote" class="">Blockquotes</li>
+        <li data-tab="mdhelp-code" data-buttons="code" class="">Code</li>
+        <li data-tab="mdhelp-html"> HTML </li>
+        <li style="float:right"><a href="https://stackoverflow.com/editing-help" target="_blank">advanced help »</a></li>
+    </ul>
+    
+    <div class="mdhelp-tab" id="mdhelp-links" style=""><div class="mdhelp-tab--content">
+            <p>
+                In most cases, a plain URL will be recognized as such and automatically linked:
+            </p>
+            <pre>Visit https://area51.stackexchange.com/ regularly!
+Use angle brackets to force linking: Have you seen &lt;https://superuser.com&gt;?
+</pre>
+            <p>
+                To create fancier links, use Markdown:
+            </p>
+                <pre>Here's [a link](http://www.example.com/)! And a reference-style link to [a panda][1].
+References don't have to be [numbers][question].
+
+ [1]: https://notfound.stackexchange.com/
+ [question]: https://english.stackexchange.com/questions/11481
+</pre>
+                <p>You can add tooltips to links:</p>
+<pre>Click [here](https://diy.stackexchange.com<span class="spaces">&nbsp;</span>"this text appears when you mouse over")!
+This works with [reference links][blog] as well.
+
+ [blog]: https://stackoverflow.blog/<span class="spaces">&nbsp;</span>"click here for updates"
+</pre>
+    </div></div>
+
+    <div class="mdhelp-tab" id="mdhelp-images" style=""><div class="mdhelp-tab--content">
+        <p>Images are exactly like links, but they have an exclamation point in front of them:</p>
+        <pre>![a busy cat](https://cdn.sstatic.net/Sites/stackoverflow/img/error-lolcat-problemz.jpg)
+![two muppets][1]
+
+ [1]: https://i.imgur.com/I5DFV.jpg "tooltip"
+</pre>
+        <p>
+            The word in square brackets is the alt text, which gets displayed if the browser
+ can't show the image. Be sure to include meaningful alt text for screen-reading
+ software.
+        </p>
+   
+    </div></div>
+    <div class="mdhelp-tab" id="mdhelp-styles" style=""><div class="mdhelp-tab--content">
+        <div class="col1">
+            <p>Be sure to use text styling sparingly; only where it helps readability.</p>
+                <pre>*This is italicized*, and so
+is _this_.
+
+**This is bold**, just like __this__.
+
+You can ***combine*** them
+if you ___really have to___.
+</pre>
+        
+        </div>
+        <div class="col2">
+            <p>
+                To break your text into sections, you can use headers:
+            </p>
+                <pre>A Large Header
+==============
+
+Smaller Subheader
+-----------------
+</pre>
+            <p>
+                Use hash marks if you need several levels of headers:</p>
+    <pre># Header 1 #
+## Header 2 ##
+### Header 3 ###
+</pre>
+        </div>
+
+    </div></div>
+    <div class="mdhelp-tab" id="mdhelp-lists" style=""><div class="mdhelp-tab--content">
+        <p>Both bulleted and numbered lists are possible:</p>
+        <div class="col1">
+<pre>-<span class="spaces">&nbsp;</span>Use a minus sign for a bullet
++<span class="spaces">&nbsp;</span>Or plus sign
+*<span class="spaces">&nbsp;</span>Or an asterisk
+
+1.<span class="spaces">&nbsp;</span>Numbered lists are easy
+2.<span class="spaces">&nbsp;</span>Markdown keeps track of
+   the numbers for you
+7.<span class="spaces">&nbsp;</span>So this will be item 3.
+</pre>
+        </div>
+        <div class="col2">
+<pre>1.<span class="spaces">&nbsp;</span>Lists in a list item:
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>-<span class="spaces">&nbsp;</span>Indented four spaces.
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>*<span class="spaces">&nbsp;</span>indented eight spaces.
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>-<span class="spaces">&nbsp;</span>Four spaces again.
+2.<span class="spaces">&nbsp;&nbsp;</span>You can have multiple
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>paragraphs in a list items.
+<span class="spaces">&nbsp;</span>
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>Just be sure to indent.
+</pre>        
+        </div>
+    </div></div>
+
+    <div class="mdhelp-tab" id="mdhelp-blockquotes" style="display: none;"><div class="mdhelp-tab--content">
+        <div class="col1">
+            <pre>&gt; Create a blockquote by
+&gt; prepending “&gt;” to each line.
+&gt;
+&gt; Other formatting also works here, e.g.
+&gt;
+&gt; 1. Lists or
+&gt; 2. Headings:
+&gt;
+&gt; ## Quoted Heading ##
+</pre>
+        </div>
+        <div class="col2">
+                <p>
+                    You can even put blockquotes in blockquotes:
+                </p>
+                <pre>&gt; A standard blockquote is indented
+&gt; &gt; A nested blockquote is indented more
+&gt; &gt; &gt; &gt; You can nest to any depth.
+</pre>
+        </div>
+    </div></div>
+
+    <div class="mdhelp-tab" id="mdhelp-code" style="display: none;"><div class="mdhelp-tab--content">
+        <p>
+            To create code blocks or other preformatted text, indent by four spaces:
+        </p>
+        <pre><span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>This will be displayed in a monospaced font. The first four spaces
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>will be stripped off, but all other whitespace will be preserved.
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>Markdown and HTML are turned off in code blocks:
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>&lt;i&gt;This is not italic&lt;/i&gt;, and [this is not a link](https://example.com)
+</pre>
+        <p>
+            To create not a block, but an inline code span, use backticks:
+        </p>
+        <pre>The `$` character is just a shortcut for `window.jQuery`.
+</pre>
+        <p>
+            If you want to have a preformatted block within a list, indent by eight spaces:
+        </p>
+        <pre>1. This is normal text.
+2. So is this, but now follows a code block:
+<span class="spaces">&nbsp;</span>
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Skip a line and indent eight spaces.
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>That's four spaces for the list
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>and four to trigger the code block.
+</pre>
+    </div></div>
+
+    <div class="mdhelp-tab" id="mdhelp-html" style=""><div class="mdhelp-tab--content">
+        <p>
+            If you need to do something that Markdown can't handle, use HTML. Note that <a href="https://meta.stackexchange.com/questions/1777/what-html-tags-are-allowed" target="_blank">we only support a very strict subset of HTML!</a>
+        </p>
+        <pre>Strikethrough humor is &lt;strike&gt;funny&lt;/strike&gt;.
+</pre>
+        <p>
+            Markdown is smart enough not to mangle your span-level HTML:
+        </p>
+        <pre>&lt;b&gt;Markdown works *fine* in here.&lt;/b&gt;
+</pre>
+        <p>
+            Block-level HTML elements have a few restrictions:
+        </p>
+        <ol>
+            <li>They must be separated from surrounding text by blank lines.</li>
+            <li>The begin and end tags of the outermost block element must not be indented.</li>
+            <li>Markdown can't be used within HTML blocks.</li>
+        </ol>
+        <br>
+        <pre>&lt;pre&gt;
+    You can &lt;em&gt;not&lt;/em&gt; use Markdown in here.
+&lt;/pre&gt;
+</pre>
+    </div></div>
+
+    <div class="cbt"></div>
+</div>
+            <textarea id="wmd-input" class="wmd-input processed validation-error" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        <div class="grippie" style="margin-right: 0px;"></div></div>
+    <div class="message message-error message-dismissable" style="max-width: 365px; min-width: 365px; position: absolute; top: 524px; left: 669px; display: block;"><div class="message-inner message-tip message-tip-left-top"><div title="close this message (or hit Esc)" class="message-close">×</div><div class="message-text" style="padding-right: 48px;">Your post appears to contain code that is not properly formatted as code. Please indent all code by 4 spaces using the code toolbar button or the CTRL+K keyboard shortcut. For more editing help, click the [?] toolbar icon.</div></div></div></div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height: 24px; display: block;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"><p>hello everyone! im building a small game in ruby to practice programming, so far everything has went well but im trying to implement multiplayer support, i can connect to the server and i can send information but when I try to read form the server it just freezes and i cant find the cause, ive read the documentation for the gem im using for TCP and i dont know, maybe i missed something, but if any of you have some insight I would really appreciate it</p>
+
+<p>heres the client side code
+class Client
+  include Celluloid::IO
+  def initialize(server, port)
+    begin
+      @socket = TCPSocket.new(server, port)
+    rescue
+      $error_message = "Cannot find game server."
+    end
+  end
+  def send_message(message)
+    @socket.write(message) if @socket
+  end
+  def read_message
+    @socket.readpartial(4096) if @socket
+  end
+end</p>
+
+<p>heres the gameserver</p>
+
+<p>require 'celluloid/autostart'
+require 'celluloid/io'
+class Server
+  include Celluloid::IO
+  finalizer :shutdown
+  def initialize(host, port)
+    puts "Starting Server on #{host}:#{port}."
+    @server = TCPServer.new(host, port)
+    @objects = Hash.new # all the objects including tanks and bullets, key is sprite uuid
+    @players = Hash.new # the players in the game (ie the tanks), key is server:port
+    async.run
+  end
+  def shutdown
+    @server.close if @server
+  end
+  def run
+    loop { async.handle_connection @server.accept }
+  end
+  def handle_connection(socket)
+    _, port, host = socket.peeraddr
+    user = "#{host}:#{port}"
+    puts "#{user} has joined the arena."
+    loop do
+      data = socket.readpartial(4096)
+      data_array = data.split("\n")
+      if data_array and !data_array.empty?
+        begin
+          data_array.each do |row|
+            message = row.split("|")
+            if message.size == 10
+              case message[0] # first item in message tells us what to do, the rest is the sprite
+              when 'obj'
+                @players[user] = message[1..9] unless @players[user]
+                @objects[message[1]] = message[1..9]
+              when 'del'
+                @objects.delete message[1]
+              end
+            end
+            response = String.new
+            @objects.each_value do |obj|
+              (response &lt;&lt; obj.join("|") &lt;&lt; "\n") if obj
+            end
+            socket.write response
+          end
+        rescue Exception =&gt; exception
+          puts exception.backtrace
+        end
+      end # end data
+    end # end loop
+  rescue EOFError =&gt; err
+    player = @players[user]
+    puts "#{player[3]} has left arena."
+    @objects.delete player[0]
+    @players.delete user
+    socket.close
+  end
+end
+server, port = ARGV[0] || "0.0.0.0", ARGV[1] || 1234
+supervisor = Server.supervise(server, port.to_i)
+trap("INT") do
+  supervisor.terminate
+  exit
+end
+sleep</p></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="201fe32a92846d5d4760fca7aa0d895aeeb702cb77672cd2967b8fe1664227ae">
+        <input id="author" name="author" type="text">
+    <input type="hidden" name="i1l" value="/wilhHYmqy5973ZCJG7HkxZ/wNVLtq5wDlWqaXrUAsI="></div>
+
+
+
+</div>
+
+        
+            <div style="position: relative;"> 
+
+                <script>
+    StackExchange.using("tagEditor", function () {
+        var channelOptions = {
+            tags: "".split(" "),
+            id: "1"
+        };
+        initTagRenderer("".split(" "), "".split(" "), channelOptions);
+        StackExchange.tagEditor($("#tagnames"))
+        StackExchange.tagEditor.ready.then(function () {
+            StackExchange.using("beginEditEvent", function () {
+                StackExchange.beginEditEvent.init();
+            });
+        });
+    });
+</script>	
+
+<div style="position: relative;"> 
+<div class="form-item">
+    <label>Tags</label>
+
+    <input id="tagnames" name="tagnames" type="text" size="60" value="" tabindex="103" placeholder="at least one tag such as (bash sql-server java), max 5 tags" style="display: none;"><div class="tag-editor" style="width: 658px; height: 35px;"><span></span><input type="text" tabindex="103" placeholder="at least one tag such as (bash sql-server java), max 5 tags" style="width: 650px;"><span></span></div>
+</div>
+</div>
+
+                    <div id="tag-suggestions"><span>suggested tags:</span><a class="post-tag" rel="tag" href="https://stackoverflow.com/questions/tagged/ruby" title="show questions tagged &#39;ruby&#39;">ruby</a></div>
+                    <script>
+                        StackExchange.using("tagSuggestions", function () {
+                            StackExchange.tagSuggestions.init();
+                        });
+                    </script>
+                
+
+                
+
+            </div>
+        
+            <div id="question-only-section">
+
+                <div class="form-submit cbt">
+                    <button id="submit-button" class="btn btn__with-icon" type="submit" tabindex="120" autocomplete="off">
+                        Post Your Question
+                    </button>
+                    <a href="https://stackoverflow.com/questions/ask#" class="btn-clear discard-question">discard</a>
+                    
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<div id="sidebar" class="ask-sidebar">
+    <div id="scroller-anchor"></div>
+    <div id="scroller" style="position: fixed; top: 70px; width: 365px; z-index: 3;">
+        <div class="module newuser sidebar-help" id="how-to-title" style="display: none;">
+            <h4>How to Ask</h4>
+            <p><b>Is your question about programming?</b></p><p>We prefer questions that can be <i>answered</i>, not just discussed.</p><p>Provide details. Share your research.</p><p>If your question is about this website, <b><a href="http://meta.stackoverflow.com/">ask it on meta</a></b> instead.</p><p class="ar"><a href="https://stackoverflow.com/help">visit the help center »</a><br><a href="https://stackoverflow.com/help/how-to-ask">asking help »</a></p>
+        </div>
+        
+
+<div class="module newuser sidebar-help" id="how-to-format" style="display: block;"><h4>Similar Questions</h4><ul><li><a href="https://stackoverflow.com/questions/948135/how-to-write-a-switch-statement-in-ruby">How to write a switch statement in Ruby?</a></li><li><a href="https://stackoverflow.com/questions/9229601/what-is-in-c-code">What is “:-!!” in C code?</a></li><li><a href="https://stackoverflow.com/questions/1986386/check-if-a-value-exists-in-an-array-in-ruby">Check if a value exists in an array in Ruby</a></li><li><a href="https://stackoverflow.com/questions/3177733/how-to-avoid-java-code-in-jsp-files">How to avoid Java code in JSP files?</a></li><li><a href="https://stackoverflow.com/questions/1992019/how-can-i-rename-a-database-column-in-a-ruby-on-rails-migration">How can I rename a database column in a Ruby on Rails migration?</a></li><li><a href="https://stackoverflow.com/questions/982677/visual-studio-command-to-collapse-all-sections-of-code">Visual Studio - Command to collapse all sections of code?</a></li><li><a href="https://stackoverflow.com/questions/4370960/what-is-attr-accessor-in-ruby">What is attr_accessor in Ruby?</a></li><li><a href="https://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world">Why does this code using random strings print “hello world”?</a></li><li><a href="https://stackoverflow.com/questions/15990429/ruby-reading-from-multiple-sockets-irc-bot">Ruby - Reading from multiple sockets (irc bot)</a></li><li><a href="https://stackoverflow.com/questions/8928403/try-catch-speeding-up-my-code">Try-catch speeding up my code?</a></li><li><a href="https://stackoverflow.com/questions/2232/calling-shell-commands-from-ruby">Calling shell commands from Ruby</a></li><li><a href="https://stackoverflow.com/questions/1020568/how-to-convert-a-string-to-lower-or-upper-case-in-ruby">How to convert a string to lower or upper case in Ruby</a></li><li><a href="https://stackoverflow.com/questions/13480942/ruby-readpartial-and-read-nonblock-not-throwing-eoferror">Ruby readpartial and read_nonblock not throwing EOFError</a></li></ul></div>
+
+
+        
+<div class="module newuser sidebar-help" id="how-to-tag" style="display:none">
+    <h4>How to Tag</h4>
+
+        <p>A tag is a keyword or label that categorizes your question with other, similar questions. Choose one or more (up to 5) tags that will help answerers to find and interpret your question.</p>
+        <p><span class="dingus">►</span> complete the sentence: <i>my question is about...</i></p>
+        <p><span class="dingus">►</span> use tags that describe things or concepts that are <i>essential</i>, not incidental to your question</p>
+        <p><span class="dingus">►</span> favor using <a href="https://stackoverflow.com/tags" target="_blank">existing popular tags</a></p>
+        <p><span class="dingus">►</span> read the descriptions that appear below the tag</p>
+        <p>If your question is primarily about a topic for which you can't find a tag:</p>
+        <p><span class="dingus">►</span> combine multiple words into single-words with hyphens (e.g. <a href="https://stackoverflow.com/questions/tagged/ruby-on-rails" class="post-tag" title="show questions tagged &#39;ruby-on-rails&#39;" rel="tag">ruby-on-rails</a>), up to a maximum of 35 characters</p>
+            <p><span class="dingus">►</span> <a href="https://stackoverflow.com/help/privileges/create-tags" target="_blank">creating new tags is a privilege</a>; if you can't yet create a tag you need, then post this question without it, then <a href="https://meta.stackoverflow.com/" target="_blank">ask the community to create it for you</a></p>
+        <p class="ar"><a href="https://stackoverflow.com/tags" target="_blank">popular tags »</a></p>
+</div>    
+    </div>
+    <script>
+        StackExchange.ready(function () { moveScroller(); });
+        StackExchange.using("editor", function () {
+                        
+            var lengthCheckInterval = setInterval(function () {
+                if ($("#wmd-input").val().length >= 220) {
+                    clearInterval(lengthCheckInterval);
+                    StackExchange.cardiologist.beatASAP();
+                }
+            }, 3000);
+        });
+        
+
+    </script>
+        
+</div>
+
+<br class="cbt">
+<div style="display:none" id="prettify-lang"></div>
+
+        </div>
+    </div>
+
+    <footer id="footer" class="site-footer js-footer" role="contentinfo">
+        <div class="site-footer--container">
+                <div class="site-footer--logo">
+
+                    <a href="https://stackoverflow.com/"><svg aria-hidden="true" class="svg-icon native iconLogoGlyphMd" width="32" height="37" viewBox="0 0 32 37"><g><path fill="#BCBBBB" d="M26 33v-9h4v13H0V24h4v9z"></path><path d="M23.1 25.99l.68-2.95-16.1-3.35L7 23l16.1 2.99zM9.1 15.2l15 7 1.4-3-15-7-1.4 3zm4.2-7.4L26 18.4l2.1-2.5L15.4 5.3l-2.1 2.5zM21.5 0l-2.7 2 9.9 13.3 2.7-2L21.5 0zM7 30h16v-3H7v3z" fill="#F48024"></path></g></svg></a>
+                </div>
+            
+            <nav class="site-footer--nav">
+                    <div class="site-footer--col site-footer--col__visible js-footer-col" data-name="default">
+                        <h5 class="-title"><a href="https://stackoverflow.com/" class="js-gps-track" data-gps-track="footer.click({ location: 3, link: 15})">Stack Overflow</a></h5>
+                        <ul class="-list js-primary-footer-links">
+                            <li class="-item"><a href="https://stackoverflow.com/questions" class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 16})">Questions</a></li>
+                                <li class="-item"><a href="https://stackoverflow.com/jobs" class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 17})">Jobs</a></li>
+                                <li class="-item"><a href="https://stackoverflow.com/jobs/directory/developer-jobs" class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 11})">Developer Jobs Directory</a></li>
+                                     <li class="-item"><a href="https://stackoverflow.com/jobs/salary" class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 28})">Salary Calculator</a></li>
+                                                            <li class="-item"><a href="https://stackoverflow.com/help" class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 3 })">Help</a></li>
+                                <li class="-item"><a onclick="StackExchange.switchMobile(&quot;on&quot;)" class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 12 })">Mobile</a></li>
+                        </ul>
+                    </div>
+                    <div class="site-footer--col site-footer--col__visible js-footer-col" data-name="default">
+                        <h5 class="-title"><a href="https://www.stackoverflowbusiness.com/" class="js-gps-track" data-gps-track="footer.click({ location: 3, link: 19 })">Products</a></h5>
+                        <ul class="-list">
+                            <li class="-item"><a href="https://stackoverflow.com/teams" class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 29 })">Teams</a></li>
+                            <li class="-item"><a href="https://www.stackoverflowbusiness.com/talent" class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 20 })">Talent</a></li>
+                            <li class="-item"><a href="https://www.stackoverflowbusiness.com/advertise" class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 21 })">Ads</a></li>
+                            <li class="-item"><a href="https://www.stackoverflowbusiness.com/enterprise" class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 22 })">Enterprise</a></li>
+                        </ul>
+                    </div>
+                <div class="site-footer--col site-footer--col__visible js-footer-col" data-name="default">
+                    <h5 class="-title"><a class="js-gps-track" data-gps-track="footer.click({ location: 3, link: 1 })" href="https://stackoverflow.com/company/about">Company</a></h5>
+                    <ul class="-list">
+                            <li class="-item"><a class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 1 })" href="https://stackoverflow.com/company/about">About</a></li>
+                                                <li class="-item"><a class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 27 })" href="https://stackoverflow.com/company/press">Press</a></li>
+                            <li class="-item"><a class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 9 })" href="https://stackoverflow.com/company/work-here">Work Here</a></li>
+                        <li class="-item"><a class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 7 })" href="https://stackexchange.com/legal">Legal</a></li>
+                        <li class="-item"><a class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 8 })" href="https://stackexchange.com/legal/privacy-policy">Privacy Policy</a></li>
+                            <li class="-item"><a class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link: 13 })" href="https://stackoverflow.com/company/contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="site-footer--col site-footer--categories-nav site-footer--col__visible">
+                    <a href="https://stackoverflow.com/questions/ask#" class="site-footer--back js-footer-back"><svg aria-hidden="true" class="svg-icon iconArrowLeftAlt" width="18" height="18" viewBox="0 0 18 18"><path d="M10.58 16L12 14.59 6.4 9 12 3.41 10.57 2l-7 7z"></path></svg></a>
+                    <div>
+                        <h5 class="-title"><a href="https://stackexchange.com/">Stack Exchange<br> Network</a></h5>
+                        <ul class="-list">
+                            <li class="-item"><a href="https://stackoverflow.com/questions/ask#" class="-link _expandable js-footer-category-trigger js-gps-track" data-gps-track="footer.click({ location: 3, link: 24 })" data-target="Technology">Technology</a></li>
+                            <li class="-item"><a href="https://stackoverflow.com/questions/ask#" class="-link _expandable js-footer-category-trigger js-gps-track" data-gps-track="footer.click({ location: 3, link: 24 })" data-target="Life / Arts">Life / Arts</a></li>
+                            <li class="-item"><a href="https://stackoverflow.com/questions/ask#" class="-link _expandable js-footer-category-trigger js-gps-track" data-gps-track="footer.click({ location: 3, link: 24 })" data-target="Culture / Recreation">Culture / Recreation</a></li>
+                            <li class="-item"><a href="https://stackoverflow.com/questions/ask#" class="-link _expandable js-footer-category-trigger js-gps-track" data-gps-track="footer.click({ location: 3, link: 24 })" data-target="Science">Science</a></li>
+                            <li class="-item"><a href="https://stackoverflow.com/questions/ask#" class="-link _expandable js-footer-category-trigger js-gps-track" data-gps-track="footer.click({ location: 3, link: 24 })" data-target="Other">Other</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="site-footer--categories">
+                    <div class="site-footer--col site-footer--category js-footer-col" data-name="Technology">
+        <ul class="-list">
+                <li class="-item"><a href="https://stackoverflow.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                <li class="-item"><a href="https://serverfault.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="system and network administrators">Server Fault</a></li>
+                <li class="-item"><a href="https://superuser.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="computer enthusiasts and power users">Super User</a></li>
+                <li class="-item"><a href="https://webapps.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="power users of web applications">Web Applications</a></li>
+                <li class="-item"><a href="https://askubuntu.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                <li class="-item"><a href="https://webmasters.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="pro webmasters">Webmasters</a></li>
+                <li class="-item"><a href="https://gamedev.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="professional and independent game developers">Game Development</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Technology"><ul class="-list">
+                <li class="-item"><a href="https://tex.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                <li class="-item"><a href="https://softwareengineering.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="professionals, academics, and students working within the systems development life cycle">Software Engineering</a></li>
+                <li class="-item"><a href="https://unix.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="users of Linux, FreeBSD and other Un*x-like operating systems">Unix &amp; Linux</a></li>
+                <li class="-item"><a href="https://apple.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                <li class="-item"><a href="https://wordpress.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="WordPress developers and administrators">WordPress Development</a></li>
+                <li class="-item"><a href="https://gis.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                <li class="-item"><a href="https://electronics.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Technology"><ul class="-list">
+                <li class="-item"><a href="https://android.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                <li class="-item"><a href="https://security.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="information security professionals">Information Security</a></li>
+                <li class="-item"><a href="https://dba.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                <li class="-item"><a href="https://drupal.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="Drupal developers and administrators">Drupal Answers</a></li>
+                <li class="-item"><a href="https://sharepoint.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="SharePoint enthusiasts">SharePoint</a></li>
+                <li class="-item"><a href="https://ux.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="user experience researchers and experts">User Experience</a></li>
+                <li class="-item"><a href="https://mathematica.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="users of Wolfram Mathematica">Mathematica</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Technology"><ul class="-list">
+                <li class="-item"><a href="https://salesforce.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                <li class="-item"><a href="https://expressionengine.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="administrators, end users, developers and designers for ExpressionEngine® CMS">ExpressionEngine® Answers</a></li>
+                <li class="-item"><a href="https://pt.stackoverflow.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="programadores profissionais e entusiastas">Stack Overflow em Português</a></li>
+                <li class="-item"><a href="https://blender.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="people who use Blender to create 3D graphics, animations, or games">Blender</a></li>
+                <li class="-item"><a href="https://networkengineering.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="network engineers">Network Engineering</a></li>
+                <li class="-item"><a href="https://crypto.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="software developers, mathematicians and others interested in cryptography">Cryptography</a></li>
+                <li class="-item"><a href="https://codereview.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="peer programmer code reviews">Code Review</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Technology"><ul class="-list">
+                <li class="-item"><a href="https://magento.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="users of the Magento e-Commerce platform">Magento</a></li>
+                <li class="-item"><a href="https://softwarerecs.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="people seeking specific software recommendations">Software Recommendations</a></li>
+                <li class="-item"><a href="https://dsp.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="practitioners of the art and science of signal, image and video processing">Signal Processing</a></li>
+                <li class="-item"><a href="https://emacs.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="those using, extending or developing Emacs">Emacs</a></li>
+                <li class="-item"><a href="https://raspberrypi.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="users and developers of hardware and software for Raspberry Pi">Raspberry Pi</a></li>
+                <li class="-item"><a href="https://ru.stackoverflow.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="программистов">Stack Overflow на русском</a></li>
+                <li class="-item"><a href="https://codegolf.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="programming puzzle enthusiasts and code golfers">Programming Puzzles &amp; Code Golf</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Technology"><ul class="-list">
+                <li class="-item"><a href="https://es.stackoverflow.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="programadores y profesionales de la informática">Stack Overflow en español</a></li>
+                <li class="-item"><a href="https://ethereum.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="users of Ethereum, the decentralized application platform and smart contract enabled blockchain">Ethereum</a></li>
+                <li class="-item"><a href="https://datascience.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="Data science professionals, Machine Learning specialists, and those interested in learning more about the field">Data Science</a></li>
+                <li class="-item"><a href="https://arduino.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="developers of open-source hardware and software that is compatible with Arduino">Arduino</a></li>
+                <li class="-item"><a href="https://bitcoin.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="Bitcoin crypto-currency enthusiasts">Bitcoin</a></li>
+                            <li class="-item">
+                    <a href="https://stackexchange.com/sites#technology" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 26 })">
+                        <strong>
+                            more (29)
+                        </strong>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="site-footer--col site-footer--category js-footer-col" data-name="Life / Arts">
+        <ul class="-list">
+                <li class="-item"><a href="https://photo.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                <li class="-item"><a href="https://scifi.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                <li class="-item"><a href="https://graphicdesign.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                <li class="-item"><a href="https://movies.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="movie and tv enthusiasts">Movies &amp; TV</a></li>
+                <li class="-item"><a href="https://music.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="musicians, students, and enthusiasts">Music: Practice &amp; Theory</a></li>
+                <li class="-item"><a href="https://worldbuilding.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="writers/artists using science, geography and culture to construct imaginary worlds and settings">Worldbuilding</a></li>
+                <li class="-item"><a href="https://cooking.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Life / Arts"><ul class="-list">
+                <li class="-item"><a href="https://diy.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="contractors and serious DIYers">Home Improvement</a></li>
+                <li class="-item"><a href="https://money.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                <li class="-item"><a href="https://academia.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="academics and those enrolled in higher education">Academia</a></li>
+                <li class="-item"><a href="https://law.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="legal professionals, students, and others with experience or interest in law">Law</a></li>
+                            <li class="-item">
+                    <a href="https://stackexchange.com/sites#lifearts" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 26 })">
+                        <strong>
+                            more (15)
+                        </strong>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="site-footer--col site-footer--category js-footer-col" data-name="Culture / Recreation">
+        <ul class="-list">
+                <li class="-item"><a href="https://english.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                <li class="-item"><a href="https://skeptics.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="scientific skepticism">Skeptics</a></li>
+                <li class="-item"><a href="https://judaism.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                <li class="-item"><a href="https://travel.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="road warriors and seasoned travelers">Travel</a></li>
+                <li class="-item"><a href="https://christianity.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                <li class="-item"><a href="https://ell.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="speakers of other languages learning English">English Language Learners</a></li>
+                <li class="-item"><a href="https://japanese.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="students, teachers, and linguists wanting to discuss the finer points of the Japanese language">Japanese Language</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Culture / Recreation"><ul class="-list">
+                <li class="-item"><a href="https://gaming.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                <li class="-item"><a href="https://bicycles.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                <li class="-item"><a href="https://rpg.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                <li class="-item"><a href="https://anime.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="anime and manga fans">Anime &amp; Manga</a></li>
+                <li class="-item"><a href="https://puzzling.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="those who create, solve, and study puzzles">Puzzling</a></li>
+                <li class="-item"><a href="https://mechanics.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="mechanics and DIY enthusiast owners of cars, trucks, and motorcycles">Motor Vehicle Maintenance &amp; Repair</a></li>
+                            <li class="-item">
+                    <a href="https://stackexchange.com/sites#culturerecreation" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 26 })">
+                        <strong>
+                            more (33)
+                        </strong>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="site-footer--col site-footer--category js-footer-col" data-name="Science">
+        <ul class="-list">
+                <li class="-item"><a href="https://mathoverflow.net/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="professional mathematicians">MathOverflow</a></li>
+                <li class="-item"><a href="https://math.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                <li class="-item"><a href="https://stats.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                <li class="-item"><a href="https://cstheory.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                <li class="-item"><a href="https://physics.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="active researchers, academics and students of physics">Physics</a></li>
+                <li class="-item"><a href="https://chemistry.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="scientists, academics, teachers and students">Chemistry</a></li>
+                <li class="-item"><a href="https://biology.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="biology researchers, academics, and students">Biology</a></li>
+                    </ul></div><div class="site-footer--col site-footer--category js-footer-col" data-name="Science"><ul class="-list">
+                <li class="-item"><a href="https://cs.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="students, researchers and practitioners of computer science">Computer Science</a></li>
+                <li class="-item"><a href="https://philosophy.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="those interested in the study of the fundamental nature of knowledge, reality, and existence">Philosophy</a></li>
+                            <li class="-item">
+                    <a href="https://stackexchange.com/sites#science" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 26 })">
+                        <strong>
+                            more (10)
+                        </strong>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="site-footer--col site-footer--category js-footer-col" data-name="Other">
+        <ul class="-list">
+                <li class="-item"><a href="https://meta.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                <li class="-item"><a href="https://stackapps.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                <li class="-item"><a href="https://api.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="programmatic interaction with Stack Exchange sites">API</a></li>
+                <li class="-item"><a href="https://data.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="querying Stack Exchange data using SQL">Data</a></li>
+                <li class="-item"><a href="https://area51.stackexchange.com/" class="-link js-gps-track" data-gps-track="footer.click({ location: 2, link: 25 })" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                    </ul>
+    </div>
+                </div>
+            </nav>
+            <div class="site-footer--copyright fs-fine">
+                <ul class="-list">
+                    <li class="-item"><a class="js-gps-track -link" data-gps-track="footer.click({ location: 3, link:4 })" href="https://stackoverflow.blog/?blb=1">Blog</a></li>
+                    <li class="-item"><a href="https://www.facebook.com/officialstackoverflow/" class="-link">Facebook</a></li>
+                    <li class="-item"><a href="https://twitter.com/stackoverflow" class="-link">Twitter</a></li>
+                    <li class="-item"><a href="https://linkedin.com/company/stack-overflow" class="-link">LinkedIn</a></li>
+                </ul>
+
+                <p class="mt-auto mb24">
+site design / logo © 2018 Stack Exchange Inc; user contributions licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a>
+                            with <a href="https://stackoverflow.blog/2009/06/25/attribution-required/" rel="license">attribution required</a>.
+                    <span id="svnrev">rev&nbsp;2018.4.27.30135</span>
+                </p>
+            </div>
+        </div>
+
+            </footer>
+    <noscript>
+        &lt;div id="noscript-warning"&gt;Stack Overflow works best with JavaScript enabled
+            &lt;img src="https://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"&gt;
+        &lt;/div&gt;
+    </noscript>
+
+<script>
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function() { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            StackExchange.ready(function () {
+
+                var trackingCodes = [
+                    'UA-108242619-1'
+                ];
+
+
+                StackExchange.ga.init({
+                    sendTitles: true,
+                    tracker: window.ga,
+                    trackingCodes: trackingCodes
+                });
+
+                    StackExchange.ga.setDimension('dimension1', '13347430');
+
+                    StackExchange.ga.setDimension('dimension10', 'ActivelyLooking');
+
+
+                    StackExchange.ga.setDimension('dimension3', 'Questions/Ask');
+
+
+                StackExchange.ga.trackPageView();
+            });
+            
+/**/
+            
+            var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+            (function() {
+                var ssl = 'https:' == document.location.protocol,
+                    s = document.getElementsByTagName('script')[0],
+                    qc = document.createElement('script');
+                 qc.async = true;
+                    qc.src = (ssl ? 'https://secure' : 'http://edge') + '.quantserve.com/quant.js';
+                    s.parentNode.insertBefore(qc, s);
+                    _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+/**/
+                 var sc = document.createElement('script');
+                    sc.async = true;
+                    sc.src = (ssl ? 'https://sb' : 'http://b') + '.scorecardresearch.com/beacon.js';
+                    s.parentNode.insertBefore(sc, s);
+                    _comscore.push({ c1: "2", c2: "17440561" });
+            })();
+            
+
+</script>
+            
+    
+    
+</body></html>
