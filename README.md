@@ -29,7 +29,10 @@ bundle
 ```
 
 ### Start the game
-From the project's root directory run the following to start the game:
+
+1. The repo now includes a .app for macOS users to run it without needing to download ruby. (Windows will be coming soon)
+
+2. From the project's root directory run the following to start the game:
 
 ```bash
 ruby Game.rb
