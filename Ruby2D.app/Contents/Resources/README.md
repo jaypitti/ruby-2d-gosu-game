@@ -4,9 +4,6 @@ Hello!
 
 This is my simple 2D game, it is just a side project I have been working on and
 I am open to any feedback!
-## How to play
-
-use WASD to move your character and the Arrow Keys to attack in each corresponding direction.
 
 ## Prerequisites
 

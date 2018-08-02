@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string>Ruby</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.libgosu.ruby-2d-gosu-game</string>
+	<string>com.example.Ruby</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

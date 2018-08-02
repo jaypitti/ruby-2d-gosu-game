@@ -19,6 +19,8 @@ class Creature < Entity
 
     @window = window
     @speed = @@DEFAULT_SPEED
+
+    @tile = 0
   end
 
   def update
@@ -35,20 +37,24 @@ class Creature < Entity
 
   def collided xvar, yvar
     tile = @window.getWorld.getTile(xvar, yvar)
-    if tile == 0 || tile == 3 || tile == 4
+    if tile == 0 || tile == 3 || tile == 4 || 
+       tile == 18 || tile == 19 || tile == 23 || 
+       tile == 24 || tile == 35 || tile == 26 || 
+       tile == 27 || tile == 28 || tile == 29 ||
+       tile == 31 || tile == 32 || tile == 33
+      @tile = tile
       return false
     else
       return true
     end
   end
 
+  def getTile
+  return @tile
+  end
+
   def moveX direction = "none"
-    # if direction == "left"
-    #   @x += -100
-    # end
-    # if direction == "left"
-    #   @x += 100
-    # end
+    
       if @xmove > 0
         tx = (@xmove + @x + @bx + @bw) / 64
         if !collided(tx, ((@y + @by) / 64)) and !collided(tx, ((@y + @by + @bh) / 64))
