@@ -60,7 +60,6 @@ class Player < Creature
 
     @camera = Camera.new window, 0, 0
 
-
   end
 
   def warp_to(x, y, angle=nil)
@@ -72,7 +71,11 @@ class Player < Creature
     playerMove
     move
     inventory
-
+    if getTile == 18
+      @speed = 1.5
+    else
+      @speed = 3
+    end
     if @health <= 0
       @active = false
     end
