@@ -7,6 +7,7 @@ I am open to any feedback!
 ## How to play
 
 use WASD to move your character and the Arrow Keys to attack in each corresponding direction.
+E and Q open and clsoe inventory.
 
 ## Prerequisites
 
