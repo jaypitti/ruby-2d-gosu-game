@@ -10,10 +10,11 @@ class Item
     @@ITEMWIDTH = 1
     @@ITEMHEIGHT = 1
 
+    @open = true
+
     @pickedup = false
 
     @texture = texture
-    @handler
     @name = name
     @id = id
 
@@ -37,6 +38,14 @@ class Item
   end
 
   def update
+        if @handler.getGame.button_down? Gosu::KbE
+      @open = true
+      puts @open
+    end
+    if @handler.getGame.button_down? Gosu::KbQ
+      @open = false
+      puts @open
+    end
     itemCollided
     # puts @count
   end
@@ -64,12 +73,32 @@ class Item
   end
 
   def draw
-    @texture.draw(@x - @handler.getGameCamera.getXoffset, @y - @handler.getGameCamera.getYoffset, 1, 1)
+    if !@open 
+      @texture.draw(@x - @handler.getGameCamera.getXoffset, @y - @handler.getGameCamera.getYoffset, 1, 1, 1)
+    else
+      render_inv 593, 115
+    end
   end
 
+   def render_inv x, y
+     @texture.draw  x, y, 10, 1, 1
+   end
+
+  def createNewInvItem count, handler
+    @handler = handler
+    item = Item.new @texture, @name, @id
+    item.setPickedUp true 
+    item.setCount count
+    return item
+  end
+  
   def createNew x, y
     item = Item.new @texture, @name, @id
     return item
+  end
+
+  def setPickedUp pickedup
+    @pickedup = pickedup
   end
 
   def setPosition x, y

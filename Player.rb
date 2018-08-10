@@ -214,6 +214,9 @@ class Player < Creature
       @direction = :down
       @moving = true
       @ymove = @speed
+    elsif
+      @window.getGame.button_down? Gosu::KbE
+      @inventory.show
     end
   end
 
@@ -260,6 +263,7 @@ class Player < Creature
     # @move and @idle are the same size,
     # so we can use the same frame calc.
     # f = @frame % @animated.size
+    @inventory.draw
     image = @assets.player
     if @moving
       if @direction == :left

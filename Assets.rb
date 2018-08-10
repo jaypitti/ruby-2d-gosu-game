@@ -1,7 +1,7 @@
 load './SpriteSheet.rb'
 
 class Assets
-  attr_accessor :player, :zombie, :player_down, :player_up, :player_x, :zom_up, :zom_down, :zom_x, :plant, :stone, :grass, :tiles, :spritesheet
+  attr_accessor :player, :zombie, :player_down, :player_up, :player_x, :zom_up, :zom_down, :zom_x, :plant, :stone, :grass, :tiles, :spritesheet, :inventory_screen
   @@tiles
   class << self
     def grass
@@ -110,7 +110,7 @@ class Assets
     @wall = @spritesheet.tileCrop @w * 15, @h * 8, @w, @h
     @door = @spritesheet.tileCrop @w * 17, @h * 8, @w, @h
 
-
+    @inventory_screen = Gosu::Image.new './images/inv.png' 
 
 
 
